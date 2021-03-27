@@ -23,23 +23,22 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserService userService;
 
     @Override
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         log.info("Getting access details from user dao !!");
         Users user = userService.findByUserName(userName);
-        if(user==null)
-        {
+        if (user == null) {
             log.info("User not found");
             throw new UsernameNotFoundException("Username not found");
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getGrantedAuthorities(user));
     }
-    private List<GrantedAuthority> getGrantedAuthorities(Users user)
-    {
+
+    private List<GrantedAuthority> getGrantedAuthorities(Users user) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         // ROLE_ADMIN, ROLE_CLIENT, ROLE_CONSULTANT
-        authorities.add(new SimpleGrantedAuthority("ROLE_"+user.getUserType().toString()));
-        log.info("authorities :"+authorities);
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getUserType().toString()));
+        log.info("authorities :" + authorities);
         return authorities;
     }
 }

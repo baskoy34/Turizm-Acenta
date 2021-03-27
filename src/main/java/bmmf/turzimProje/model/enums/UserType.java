@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public enum UserType {
-    ADMIN("ROLE_ADMIN"),
+    ACENTA("ROLE_ACENTA"),
     CLIENT("ROLE_CLIENT");
 
 

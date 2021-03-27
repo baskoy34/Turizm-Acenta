@@ -37,26 +37,27 @@ public class CustomSuccessHandler extends SavedRequestAwareAuthenticationSuccess
 
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException
-    {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         String targetUrl = StringUtils.EMPTY;
-        final User user = (User)authentication.getPrincipal();
+        final User user = (User) authentication.getPrincipal();
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
         final List<String> roles = new ArrayList<>();
         authorities.forEach(grantedAuthority -> roles.add(grantedAuthority.getAuthority()));
         final Users dbUser = userService.findByUserName(user.getUsername());
-        if(isAcente(roles)){
-            targetUrl = authenticateAcenta(request,dbUser);
+        if (isAcente(roles)) {
+            targetUrl = authenticateAcenta(request, dbUser);
         }
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
-    public String authenticateAcenta(HttpServletRequest request,Users dbUser){
+
+    public String authenticateAcenta(HttpServletRequest request, Users dbUser) {
         final AcentaUser acentaUser = acentaUserService.findByUser(dbUser);
         request.getSession().setAttribute(Constants.userInfoKey, acentaUser);
         return "/acenta";
     }
-    public boolean isAcente(List<String> roles){
+
+    public boolean isAcente(List<String> roles) {
         return roles.contains("ROLE_ACENTA");
     }
 }

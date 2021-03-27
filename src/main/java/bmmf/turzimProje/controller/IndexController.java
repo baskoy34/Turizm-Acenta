@@ -1,18 +1,23 @@
 package bmmf.turzimProje.controller;
 
+import bmmf.turzimProje.model.AcentaUser;
+import bmmf.turzimProje.utils.Constants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
-@RequestMapping("")
+@RequestMapping("/acenta")
 public class IndexController {
 
     @GetMapping
-    public ModelAndView index(){
+    public ModelAndView index(HttpSession session) {
+        AcentaUser user = (AcentaUser) session.getAttribute(Constants.userInfoKey);
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("test","Burada huzur var");
+        modelAndView.addObject("test", user.getAcentaName());
         return modelAndView;
     }
 }
