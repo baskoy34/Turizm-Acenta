@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/test")
 public class TestController {
 
     @Autowired
     private TestService testService;
 
-    @GetMapping("test")
+    @GetMapping("/test")
     @ResponseBody
     public List<Test> findAll() {
 
         return testService.findAll();
     }
-    @PostMapping("test")
+    @PostMapping("/test")
     @ResponseBody
     public Test add(@RequestBody Test test){
         return testService.save(test);
