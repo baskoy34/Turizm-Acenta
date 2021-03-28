@@ -39,10 +39,18 @@
     <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(../../assets/images/big/auth-bg.jpg) no-repeat center center;">
         <div class="auth-box">
             <div id="loginform">
-                <div class="logo">
-                    <span class="db"><img src="../../assets/images/logo-icon.png" alt="logo" /></span>
-                    <h5 class="font-medium m-b-20">Sign In to Admin</h5>
-                </div>
+                <c:if test="${not empty error}">
+                    <div class="alert alert-danger">
+                        <button class="close" data-close="alert"></button>
+                        <span>${error}</span>
+                    </div>
+                </c:if>
+                <c:if test="${not empty msg}">
+                    <div class="alert alert-success">
+                        <button class="close" data-close="alert"></button>
+                        <span>${msg}</span>
+                    </div>
+                </c:if>
                 <!-- Form -->
                 <div class="row">
                     <div class="col-12">

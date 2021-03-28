@@ -1,0 +1,7 @@
+INSERT INTO `users` (`password`, `userType`, `username`) VALUES ('$2a$10$Anzq3AwyJYPz7lIIG/HOwetHeMQijqPmKroWjvO1OFseER5I.pEwi', 'ACENTA', 'volkan');
+INSERT INTO `users` (`password`, `userType`, `username`) VALUES ('$2a$10$Anzq3AwyJYPz7lIIG/HOwetHeMQijqPmKroWjvO1OFseER5I.pEwi', 'ACENTA', 'apo');
+INSERT INTO `users` (`password`, `userType`, `username`) VALUES ('$2a$10$Anzq3AwyJYPz7lIIG/HOwetHeMQijqPmKroWjvO1OFseER5I.pEwi', 'ACENTA', 'erhan');
+
+INSERT INTO `kurumsaljava`.`acentauser` (`acentaName`, `UserID`) VALUES ('Volkan Acenta', '1');
+INSERT INTO `kurumsaljava`.`acentauser` (`acentaName`, `UserID`) VALUES ('Apo Acenta', '2');
+INSERT INTO `kurumsaljava`.`acentauser` (`acentaName`, `UserID`) VALUES ('Erhan Acenta', '3');

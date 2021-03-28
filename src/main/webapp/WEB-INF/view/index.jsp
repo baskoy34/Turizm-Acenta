@@ -9,9 +9,21 @@
     <title>Anasayfa</title>
 </head>
 <body>
-<h1> Hoş geldiniz</h1>
-<h2> ${test}</h2>
-<h3>TESTTETSTES</h3>
-<h4>TESTTETSsgsdgsgsdgT sgddsgasdgas sd gasdg ES</h4>
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="collg-6 col-md-6 col-sm-6">
+                <h5>Hoş geldiniz</h5>
+                <p>${test}</p>
+            </div>
+            <div class="collg-6 col-md-6 col-sm-6">
+                <a class="nav-link" href="<c:url value="/logout" />" title="Çıkış Yap">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Çıkış Yap</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
