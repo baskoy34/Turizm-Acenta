@@ -2,8 +2,10 @@ package bmmf.turzimProje.security;
 
 import bmmf.turzimProje.dao.AcentaUserDao;
 import bmmf.turzimProje.model.AcentaUser;
+import bmmf.turzimProje.model.Admins;
 import bmmf.turzimProje.model.Users;
 import bmmf.turzimProje.service.AcentaUserService;
+import bmmf.turzimProje.service.AdminService;
 import bmmf.turzimProje.service.UserService;
 import bmmf.turzimProje.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +36,8 @@ public class CustomSuccessHandler extends SavedRequestAwareAuthenticationSuccess
     private UserService userService;
     @Autowired
     private AcentaUserService acentaUserService;
+    @Autowired
+    private AdminService adminService;
 
 
     @Override
@@ -48,6 +52,9 @@ public class CustomSuccessHandler extends SavedRequestAwareAuthenticationSuccess
         if (isAcente(roles)) {
             targetUrl = authenticateAcenta(request, dbUser);
         }
+        if (isAdmin(roles)){
+            targetUrl = authenticateAdmin(request, dbUser);
+        }
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
@@ -57,7 +64,16 @@ public class CustomSuccessHandler extends SavedRequestAwareAuthenticationSuccess
         return "/acenta";
     }
 
+    public String authenticateAdmin (HttpServletRequest request, Users dbUser) {
+        final Admins admin = adminService.findByUser(dbUser);
+        request.getSession().setAttribute(Constants.userInfoKey, admin);
+        return "/admin";
+    }
+
     public boolean isAcente(List<String> roles) {
         return roles.contains("ROLE_ACENTA");
+    }
+    public boolean isAdmin(List<String> roles) {
+        return roles.contains("ROLE_ADMIN");
     }
 }

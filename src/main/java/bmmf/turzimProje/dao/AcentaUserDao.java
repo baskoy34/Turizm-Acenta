@@ -2,10 +2,15 @@ package bmmf.turzimProje.dao;
 
 import bmmf.turzimProje.model.AcentaUser;
 import bmmf.turzimProje.model.Users;
+import bmmf.turzimProje.model.dto.CreateUserDto;
+import bmmf.turzimProje.model.dto.GeneralResponse;
 import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.math.BigInteger;
 
 @Repository
 public class AcentaUserDao {
@@ -17,5 +22,23 @@ public class AcentaUserDao {
         sqlQuery.setParameter("userId", user.getId());
         sqlQuery.addEntity(AcentaUser.class);
         return (AcentaUser) sqlQuery.getSingleResult();
+    }
+
+    public void createAcenteUser(CreateUserDto userDto){
+        Session session = sessionFactory.getCurrentSession();
+        SQLQuery sqlQuery = session.createSQLQuery("insert into users(password, userType, username) values (:password, :userType, :username)");
+        sqlQuery.setParameter("password", userDto.getPassword());
+        sqlQuery.setParameter("userType", userDto.getUserType().getDescription());
+        sqlQuery.setParameter("username", userDto.getUsername());
+        sqlQuery.executeUpdate();
+
+        BigInteger result = (BigInteger) session.createSQLQuery("SELECT LAST_INSERT_ID()")
+                .uniqueResult();
+        int userID = result.intValue();
+
+        SQLQuery sqlQuery2 = session.createSQLQuery("insert into acentauser(acentaName, UserID) values (:acentaName, :userId)");
+        sqlQuery2.setParameter("acentaName", userDto.getAcentaName());
+        sqlQuery2.setParameter("userId",userID);
+        sqlQuery2.executeUpdate();
     }
 }

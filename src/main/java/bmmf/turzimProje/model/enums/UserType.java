@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public enum UserType {
-    ACENTA("ROLE_ACENTA"),
-    CLIENT("ROLE_CLIENT");
+    ACENTA("ACENTA", "ROLE_ACENTA" ),
+    ADMIN("ADMIN", "ROLE_ADMIN");
 
 
     private static final Map<String, UserType> lookup = new ConcurrentHashMap<>();
@@ -20,9 +20,14 @@ public enum UserType {
 
     @Getter
     @Setter
+    private String description;
+
+    @Getter
+    @Setter
     private String role;
 
-    UserType(String role) {
+    UserType(String description, String role) {
+        this.description = description;
         this.role = role;
     }
 
