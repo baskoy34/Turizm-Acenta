@@ -20,13 +20,18 @@ public class Users implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(unique = true)
     private String username;
+
     private String password;
+
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
     @OneToMany(mappedBy = "user")
     private Set<AcentaUser> acentaUserSet = new HashSet<>();
+
     @OneToMany(mappedBy = "user")
     private Set<Admins> admins = new HashSet<>();
 }

@@ -2,11 +2,14 @@ package bmmf.turzimProje.controller;
 
 import bmmf.turzimProje.model.AcentaUser;
 import bmmf.turzimProje.model.Admins;
+import bmmf.turzimProje.model.Users;
 import bmmf.turzimProje.model.dto.CreateUserDto;
 import bmmf.turzimProje.model.dto.GeneralResponse;
 import bmmf.turzimProje.model.enums.UserType;
 import bmmf.turzimProje.service.AdminService;
 import bmmf.turzimProje.utils.Constants;
+import oracle.jdbc.proxy.annotation.Post;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -48,4 +51,27 @@ public class AdminController {
         GeneralResponse response = adminService.createAcentaUser(userDto);
         return response;
     }
+
+    @GetMapping("/listUser")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseBody
+    public ModelAndView getUserList(HttpSession httpSession){
+        ModelAndView modelAndView = new ModelAndView("listUsers");
+        List<Users> users = adminService.listAcentaUser();
+        modelAndView.addObject("users", users);
+        return modelAndView;
+    }
+
+    @GetMapping("/updateUser")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseBody
+    public ModelAndView updateUser(@RequestParam("userId") int theId){
+        Users users = adminService.getUser(theId);
+        ModelAndView modelAndView = new ModelAndView("updateUser");
+        List<UserType> userTypes = Arrays.asList(UserType.values());
+        modelAndView.addObject("userRoles", userTypes);
+        modelAndView.addObject("users", users);
+        return modelAndView;
+    }
+
 }

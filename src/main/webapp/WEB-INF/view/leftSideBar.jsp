@@ -38,10 +38,11 @@
                         </li>
                     </ul>
                 </li>
+
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                         <i class="mdi mdi-tune"></i>
-                        <span class="hide-menu">Sidebar Type </span>
+                        <span class="hide-menu">Yönetim Paneli </span>
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level">
                         <li class="sidebar-item">
@@ -50,8 +51,16 @@
                                 <span class="hide-menu">Kullanıcı Oluştur</span>
                             </a>
                         </li>
+
+                        <li class="sidebar-item">
+                            <a href="<c:url value="/admin/listUser"/>" class="sidebar-link">
+                                <i class="mdi mdi-view-quilt"></i>
+                                <span class="hide-menu">Kullanıcı Listele</span>
+                            </a>
+                        </li>
                     </ul>
-                </li>
+
+
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

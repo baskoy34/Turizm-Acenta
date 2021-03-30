@@ -71,9 +71,8 @@
                             <div class="card-header bg-info">
                                 <h4 class="m-b-0 text-white">Kullanıcı tanımlama ve yetkilendirme</h4>
                             </div>
-                            <form id="createUser">
                                 <div class="card-body">
-                                                <h4 class="card-title">Kulannıcı Bilgileri</h4>
+                                                <h4 class="card-title">Kulanıcı Bilgileri</h4>
                                             </div>
                                             <hr>
                                             <div class="form-body">

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -46,5 +48,13 @@ public class AdminService {
         userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         GeneralResponse response = acentaService.createAcenteUser(userDto);
         return response;
+    }
+
+    public List<Users> listAcentaUser() {
+        return adminDao.listUsers();
+    }
+
+    public Users getUser(int theId) {
+        return adminDao.getUser(theId);
     }
 }
