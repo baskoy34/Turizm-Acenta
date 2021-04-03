@@ -1,0 +1,35 @@
+package bmmf.turzimProje.model;
+
+import bmmf.turzimProje.model.enums.TourType;
+import lombok.*;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "tour")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Tour implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private int price;
+    private String startDate;
+    private String endDate;
+    private String location;
+    private int capasity;
+    private String details;
+    @Enumerated(EnumType.STRING)
+    private TourType tourType;
+    @ManyToMany
+    @JoinTable( name = "satislar",
+            joinColumns = { @JoinColumn(name = "tour_id") },
+            inverseJoinColumns = { @JoinColumn(name = "client_id") })
+    private List<Client> clients = new ArrayList<>();
+}
