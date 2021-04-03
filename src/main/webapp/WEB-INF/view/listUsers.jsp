@@ -7,22 +7,30 @@
 
 <head>
 
+    <meta name="_csrf" content="${_csrf.token}" />
+    <meta name="_csrf_header" content="${_csrf.headerName}" />
     <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Kullanıcı Listesi</title>
-
-
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
+    <title>Nice admin Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
-    <link href="../../resources/css/footable.core.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <link href="../../resources/css/style.min.css" rel="stylesheet">
-
+    <link href="../../resources/css/toastr.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->>
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+    <![endif]-->
 
 </head>
 
@@ -90,15 +98,6 @@
                                     <tbody>
 
                                     <c:forEach var="tempUsers" items="${users}" >
-
-                                        <c:url var="updateButton" value="/admin/updateUser">
-                                            <c:param name="userId" value="${tempUsers.id}" />
-                                        </c:url>
-
-                                        <c:url var="deleteButton" value="/admin/deleteUser">
-                                            <c:param name="userId" value="${tempUsers.id}" />
-                                        </c:url>
-
                                         <tr>
                                             <td><span class="label label-danger">${tempUsers.id}</td>
                                             <td><span class="label label-inverse">${tempUsers.username}</span></td>
@@ -116,70 +115,9 @@
                                                     <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="bottom" title=""></i>
                                                 </a>
                                             </td>
-
-
-
                                         </tr>
-
                                     </c:forEach>
-
                                     </tbody>
-
-
-                                    <tfoot>
-                                    <tr>
-                                        <td colspan="2">
-                                            <button type="button" class="btn btn-info btn-rounded" data-toggle="modal" data-target="#add-contact">Add New Contact</button>
-                                        </td>
-                                        <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title" id="myModalLabel">Add New Contact</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <from class="form-horizontal form-material">
-                                                            <div class="form-group">
-                                                                <div class="col-md-12 m-b-20">
-                                                                    <input type="text" class="form-control" placeholder="Type name"> </div>
-                                                                <div class="col-md-12 m-b-20">
-                                                                    <input type="text" class="form-control" placeholder="Email"> </div>
-                                                                <div class="col-md-12 m-b-20">
-                                                                    <input type="text" class="form-control" placeholder="Phone"> </div>
-                                                                <div class="col-md-12 m-b-20">
-                                                                    <input type="text" class="form-control" placeholder="Designation"> </div>
-                                                                <div class="col-md-12 m-b-20">
-                                                                    <input type="text" class="form-control" placeholder="Age"> </div>
-                                                                <div class="col-md-12 m-b-20">
-                                                                    <input type="text" class="form-control" placeholder="Date of joining"> </div>
-                                                                <div class="col-md-12 m-b-20">
-                                                                    <input type="text" class="form-control" placeholder="Salary"> </div>
-                                                                <div class="col-md-12 m-b-20">
-                                                                    <div class="fileupload btn btn-danger btn-rounded waves-effect waves-light"><span><i class="ion-upload m-r-5"></i>Upload Contact Image</span>
-                                                                        <input type="file" class="upload"> </div>
-                                                                </div>
-                                                            </div>
-                                                        </from>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">Save</button>
-                                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
-                                                    </div>
-                                                </div>
-                                                <!-- /.modal-content -->
-                                            </div>
-                                            <!-- /.modal-dialog -->
-                                        </div>
-                                        <td colspan="7">
-                                            <div class="">
-                                                <nav aria-label="Page navigation example">
-                                                    <ul class="pagination float-right"></ul>
-                                                </nav>
-                                            </div>
-                                        </td>
-                                      </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -208,102 +146,91 @@
         <!-- End footer -->
         <!-- ============================================================== -->
     </div>
+</div>
+
     <!-- ============================================================== -->
     <!-- End Page wrapper  -->
 
     <!-- ============================================================== -->
 
 
-        <div id="updateModel" class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
+<div id="updateModel" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
 
-                    <div class="modal-header">
+            <div class="modal-header">
+                <form action="updateUser" method="post">
 
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <div>
 
+                        <div class="input-group-group">
+                            <label>Kullanıcı Adı:</label>
+                            <input type="text" name="username"/>
+                        </div>
 
-                        <form:form action="updateUser" method="post">
-
-                         <div>
-
-                                <div class="input-group-group">
-                                    <label>Kullanıcı Adı:</label>
-                                    <form:input path="username" />
-                                </div>
-
-                                <div class="input-group">
-                                    <label>Şifre:</label>
-                                    <form:input path="password" />
-                                </div>
-
-                                <div class="input-group">
-                                    <label>Kullanıcı Rol:</label>
-                                    <form:input path="UserType" />
-                                </div>
-
-                                <div class="input-group">
-                                    <label>Acenta Ad:</label>
-                                    <form:input path="acentaName" />
-                                </div>
-
-                         </div>
-
-                        </form:form>
-
+                        <div class="input-group">
+                            <label>Şifre:</label>
+                            <input type="text" name="password"/>
+                        </div>
+                        <div class="input-group">
+                            <label>Kullanıcı Rol:</label>
+                            <input type="text" name="UserType"/>
+                        </div>
+                        <div class="input-group">
+                            <label>Acenta Ad:</label>
+                            <input type="text" name="acentaName"/>
+                        </div>
                     </div>
-
-                    <div class="modal-body">
-                        <p>Modal body text goes here.</p>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-
-                </div>
+                </form>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
             </div>
 
-
-            <div class="modal fade modal-profile" id="deleteRecordModal" tabindex="-1" role="dialog"
-                 aria-labelledby="updateService" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-
-                            <h5 class="modal-title">Kaydı silmek üzeresiniz!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-                            Silmek istediğinize emin misiniz ?
-                        </div>
-
-                        <div class="modal-footer">
-                            <a class="btn btn-danger" id="btnDeleteYes">Evet</a>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Hayır</button>
-                        </div>
-
-                    </div>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
 
-        <script>
-            $(document).ready(function() {
+        </div>
+    </div>
+</div>
 
-                $(".updateModel").click(function () {
-                    $('#updateModel').show();
-                });
-            })
+<div class="modal fade modal-profile" id="deleteRecordModal" tabindex="-1" role="dialog"
+     aria-labelledby="updateService" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
 
-        </script>
+                <h5 class="modal-title">Kaydı silmek üzeresiniz!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
+            <div class="modal-body">
+                Silmek istediğinize emin misiniz ?
+            </div>
 
+            <div class="modal-footer">
+                <a class="btn btn-danger" id="btnDeleteYes">Evet</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hayır</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".updateModel").click(function () {
+            console.log("clicked")
+            $('#updateModel').show();
+        });
+    })
+
+</script>
 
 </body>
 
