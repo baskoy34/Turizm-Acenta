@@ -1,8 +1,11 @@
 package bmmf.turzimProje.model;
 
 import lombok.*;
+import org.hibernate.mapping.Join;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "acentauser")
@@ -20,4 +23,14 @@ public class AcentaUser {
     @JoinColumn(name = "UserID", nullable = false)
     private Users user;
     private String acentaName;
+
+    @OneToMany(mappedBy = "acentaUser")
+    private Set<Tour> tours = new HashSet<>();
+
+    @OneToMany(mappedBy = "acentaUser")
+    private Set<Staff> staffs = new HashSet<>();
+
+
 }
+
+
