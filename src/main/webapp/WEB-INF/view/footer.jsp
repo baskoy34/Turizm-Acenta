@@ -25,4 +25,5 @@
 <script src="../../resources/js/custom.js"></script>
 <script src="../../resources/js/jquery.serialize-object.js"></script>
 <script src="../../resources/js/toastr.js"></script>
+<script src="../../resources/js/prism.js"></script>
 <!--This page JavaScript -->

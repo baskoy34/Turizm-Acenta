@@ -106,20 +106,17 @@
                                             <td><span class="label label-info">${tempUsers.userType}</span></td>
 
                                              <td>
-                                                <a style="text-decoration: none" href=${updateButton}>
-                                                 <button  type="button" class="btn btn-primary btn-circle">
-                                                     <i class="fa fa-list" />
-                                                 </button>
-                                                </a>
-                                             </td>
-
-                                             <td>
-                                                 <a href=${deleteButton} style="text-decoration: none">
-                                                  <button type="button" class="btn btn-warning btn-circle">
-                                                    <i class="fa fa-times" />
-                                                  </button>
+                                                 <a class="updateModel">
+                                                     <i class="fas fa-edit" data-toggle="tooltip" data-placement="bottom" title=""></i>
                                                  </a>
                                              </td>
+
+                                            <td>
+                                                <a>
+                                                    <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="bottom" title=""></i>
+                                                </a>
+                                            </td>
+
 
 
                                         </tr>
@@ -217,6 +214,94 @@
     <!-- ============================================================== -->
 
 
+        <div id="updateModel" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+
+                        <form:form action="updateUser" method="post">
+
+                         <div>
+
+                                <div class="input-group-group">
+                                    <label>Kullanıcı Adı:</label>
+                                    <form:input path="username" />
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Şifre:</label>
+                                    <form:input path="password" />
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Kullanıcı Rol:</label>
+                                    <form:input path="UserType" />
+                                </div>
+
+                                <div class="input-group">
+                                    <label>Acenta Ad:</label>
+                                    <form:input path="acentaName" />
+                                </div>
+
+                         </div>
+
+                        </form:form>
+
+                    </div>
+
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="modal fade modal-profile" id="deleteRecordModal" tabindex="-1" role="dialog"
+                 aria-labelledby="updateService" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h5 class="modal-title">Kaydı silmek üzeresiniz!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            Silmek istediğinize emin misiniz ?
+                        </div>
+
+                        <div class="modal-footer">
+                            <a class="btn btn-danger" id="btnDeleteYes">Evet</a>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hayır</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        <script>
+            $(document).ready(function() {
+
+                $(".updateModel").click(function () {
+                    $('#updateModel').show();
+                });
+            })
+
+        </script>
 
 
 
