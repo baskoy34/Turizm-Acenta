@@ -105,7 +105,7 @@
                                             <td><span class="label label-info">${tempUsers.userType}</span></td>
 
                                              <td>
-                                                 <a class="updateModel">
+                                                 <a class="updateModel" data-id="${tempUsers.id}" data-username="${tempUsers.username}" data-password="${tempUsers.password}" data-user="${tempUsers.userType}"  >
                                                      <i class="fas fa-edit" data-toggle="tooltip" data-placement="bottom" title=""></i>
                                                  </a>
                                              </td>
@@ -154,7 +154,7 @@
     <!-- ============================================================== -->
 
 
-<div id="updateModel" class="modal" tabindex="-1" role="dialog">
+<div class="modal fadeIn modal-profile" id="updateModel" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
 
@@ -165,20 +165,16 @@
 
                         <div class="input-group-group">
                             <label>Kullanıcı Adı:</label>
-                            <input type="text" name="username"/>
+                            <input id="username" type="text" name="username"/>
                         </div>
 
                         <div class="input-group">
                             <label>Şifre:</label>
-                            <input type="text" name="password"/>
+                            <input id="password" type="text" name="password"/>
                         </div>
                         <div class="input-group">
                             <label>Kullanıcı Rol:</label>
-                            <input type="text" name="UserType"/>
-                        </div>
-                        <div class="input-group">
-                            <label>Acenta Ad:</label>
-                            <input type="text" name="acentaName"/>
+                            <input id="userType" type="text" name="UserType"/>
                         </div>
                     </div>
                 </form>
@@ -225,8 +221,11 @@
     $(document).ready(function () {
 
         $(".updateModel").click(function () {
-            console.log("clicked")
+            $('#updateModel #username').val($(this).data('username'))
+            $('#updateModel #password').val($(this).data('password'))
+            $('#updateModel #userType').val($(this).data('user'))
             $('#updateModel').show();
+            console.log($(this).data('user'))
         });
     })
 
