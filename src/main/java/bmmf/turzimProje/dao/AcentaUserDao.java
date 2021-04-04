@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @Repository
@@ -31,9 +32,7 @@ public class AcentaUserDao {
         sqlQuery.setParameter("userType", userDto.getUserType().getDescription());
         sqlQuery.setParameter("username", userDto.getUsername());
         sqlQuery.executeUpdate();
-
-        BigInteger result = (BigInteger) session.createSQLQuery("SELECT LAST_INSERT_ID()")
-                .uniqueResult();
+        BigDecimal result =  (BigDecimal) session.createSQLQuery("select acenta_seq.nextVal from dual").getSingleResult();
         int userID = result.intValue();
 
         SQLQuery sqlQuery2 = session.createSQLQuery("INSERT INTO acentauser(acentaName, UserID) values (:acentaName, :userId)");
