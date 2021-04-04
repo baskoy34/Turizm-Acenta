@@ -27,10 +27,24 @@ public class AcentaController {
         return modelAndView;
     }
 
-    @PostMapping("createStaff")
+    @PostMapping("staff")
     @ResponseBody
     public GeneralResponse createStaff(@RequestBody Staff staff, HttpSession httpSession){
         AcentaUser acentaUser = (AcentaUser) httpSession.getAttribute(Constants.userInfoKey);
         return staffService.save(staff, acentaUser);
+    }
+
+    @DeleteMapping("staff")
+    @ResponseBody
+    public GeneralResponse deleteStaff(@RequestParam("id") Long id, HttpSession httpSession){
+        AcentaUser acentaUser = (AcentaUser) httpSession.getAttribute(Constants.userInfoKey);
+        return staffService.delete(id,acentaUser);
+    }
+
+    @PutMapping("staff")
+    @ResponseBody
+    public GeneralResponse updateStaff(@RequestBody Staff staff, HttpSession httpSession){
+        AcentaUser acentaUser = (AcentaUser) httpSession.getAttribute(Constants.userInfoKey);
+        return staffService.update(staff, acentaUser);
     }
 }

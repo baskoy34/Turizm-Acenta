@@ -33,4 +33,24 @@ public class StaffDao {
         sqlQuery.setParameter("acentaId",acentaUser.getId());
         sqlQuery.executeUpdate();
     }
+
+    public void delete(Long id, AcentaUser acentaUser){
+        String query = "delete from staff where id=:id and acenta_ID=:aid";
+        SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery(query);
+        sqlQuery.setParameter("id",id);
+        sqlQuery.setParameter("aid",acentaUser.getId());
+        sqlQuery.executeUpdate();
+    }
+
+    public void update(Staff staff, AcentaUser acentaUser){
+        String query = "update staff set firstname=:firstname, job=:job, lastname=:lastname, price=:price where id=:id and acenta_ID=:acentaId";
+        SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery(query);
+        sqlQuery.setParameter("firstname",staff.getFirstName());
+        sqlQuery.setParameter("job",staff.getJob());
+        sqlQuery.setParameter("lastname",staff.getLastName());
+        sqlQuery.setParameter("price",staff.getPrice());
+        sqlQuery.setParameter("acentaId",acentaUser.getId());
+        sqlQuery.setParameter("id",staff.getId());
+        sqlQuery.executeUpdate();
+    }
 }

@@ -75,6 +75,7 @@
                                                 <h4 class="card-title">Kulanıcı Bilgileri</h4>
                                             </div>
                                             <hr>
+                            <form id="createUser">
                                             <div class="form-body">
                                                 <div class="card-body">
                                                     <div class="row p-t-20">
