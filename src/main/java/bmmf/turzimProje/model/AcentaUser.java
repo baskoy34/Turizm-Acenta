@@ -17,10 +17,7 @@ import java.util.Set;
 public class AcentaUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "acenta_id_seq")
-    @SequenceGenerator(name = "acenta_id_seq",
-            sequenceName = "acenta_seq",
-            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
