@@ -50,16 +50,16 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-5 align-self-center">
-                    <h4 class="page-title">Kullanıcı Listesi</h4>
+                    <h4 class="page-title">Personel Listesi</h4>
                 </div>
                 <div class="col-7 align-self-center">
                     <div class="d-flex align-items-center justify-content-end">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="#">Home</a>
+                                    Dashboard
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page">Users List</li>
+                                <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)">Personel Listesi</a></li>
                             </ol>
                         </nav>
                     </div>
@@ -80,7 +80,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Users</h4>
+                            <h4 class="card-title">Personeller</h4>
                             <h6 class="card-subtitle"></h6>
                             <div class="table-responsive">
                                 <div class="float-right mb-2">
@@ -112,14 +112,14 @@
 
 
                                             <td>
-                                                <a class="updateModel" data-id="${staff.id}" data-username="${tempUsers.username}" data-password="${tempUsers.password}" data-user="${tempUsers.userType}"  >
+                                                <a class="updateHref" data-id="${staff.id}" data-firstname="${staff.firstName}" data-lastname="${staff.lastName}" data-price="${staff.price}"  data-job="${staff.job}">
                                                     <i class="fas fa-edit" data-toggle="tooltip" data-placement="bottom" title=""></i>
                                                 </a>
                                             </td>
 
                                             <td>
-                                                <a>
-                                                    <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="bottom" title=""></i>
+                                                <a class="deleteHref" data-id="${staff.id}">
+                                                    <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="bottom" title="Sil"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -138,7 +138,7 @@
     </div>
 </div>
 
-<div class="modal fadeIn modal-profile" id="createUserModel" tabindex="-1" role="dialog">
+<div class="modal fade modal-profile" id="createUserModel" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -149,27 +149,28 @@
                     <div class="form-group row">
                         <label  class="col-sm-2 col-form-label">İsim</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="firstName" placeholder="İsim">
+                            <input id="fname" type="text" class="form-control" name="firstName" placeholder="İsim">
+                            <input type="text" style="visibility: hidden" id="id" name="id">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label  class="col-sm-2 col-form-label">Soy İsim</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="lastName" placeholder="Soy İsim">
+                            <input id="lname" type="text" class="form-control" name="lastName" placeholder="Soy İsim">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label  class="col-sm-2 col-form-label">Ücret</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" name="price" placeholder="Ücret">
+                            <input id="price" type="number" class="form-control" name="price" placeholder="Ücret">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label  class="col-sm-2 col-form-label">Görev</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="job" placeholder="Görev">
+                            <input id="job" type="text" class="form-control" name="job" placeholder="Görev">
                         </div>
                     </div>
                 </form>
@@ -182,8 +183,7 @@
     </div>
 </div>
 
-<div class="modal fade modal-profile" id="deleteRecordModal" tabindex="-1" role="dialog"
-     aria-labelledby="updateService" aria-hidden="true">
+<div class="modal fade" id="deleteRecordModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -199,8 +199,8 @@
             </div>
 
             <div class="modal-footer">
-                <a class="btn btn-danger" id="btnDeleteYes">Evet</a>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Hayır</button>
+                <button type="button" class="btn waves-effect waves-light btn-danger" id="btnDeleteYes">Evet</button>
+                <button type="button" class="btn waves-effect waves-light btn-inf" data-dismiss="modal">Hayır</button>
             </div>
 
         </div>
@@ -219,13 +219,57 @@
 
     $(document).ready(function () {
 
+        $(".deleteHref").click(function () {
+           $('#deleteRecordModal').data('id',$(this).data('id')).modal('show');
+        })
+
+        $(".updateHref").click(function () {
+            $('#createUserModel #id').val($(this).data('id'));
+            $('#createUserModel #fname').val($(this).data('firstname'));
+            $('#createUserModel #lname').val($(this).data('lastname'));
+            $('#createUserModel #price').val($(this).data('price'));
+            $('#createUserModel #job').val($(this).data('job'));
+            $('#createUserModel').data('type',"update").modal('show');
+        })
+
+        $('#createUserModel').on('hidden.bs.modal', function (e) {
+            $('#createUserForm').trigger("reset");
+            $('#createUserModel').removeData('type')
+        });
+
+        $("#btnDeleteYes").click(function () {
+            var id = $('#deleteRecordModal').data('id');
+
+            $.ajax({
+                type: "DELETE",
+                contentType: "application/json; charset=utf-8",
+                url: "acenta/staff?id="+id,
+                timeout : 100000,
+                success: function(response) {
+                    if(response.result == 0){
+                        toastr.success(response.message)
+                        setTimeout(function(){
+                            location.reload()
+                        },500)
+                    }
+                    else {
+                        toastr.error(response.message)
+                    }
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    toastr.error("Bilinmeyen Bir Hata oluştu")
+                }
+            });
+        })
+
         $("#personelCreateBtn").click(function () {
             event.preventDefault();
             var postData = $('#createUserForm').serializeObject();
-            console.log(postData)
+            var type = $('#createUserModel').data('type') == 'update' ? 'put' : 'post';
             $.ajax({
-                type: "post",
-                url: "acenta/createStaff",
+                type: type,
+                url: "acenta/staff",
                 data: JSON.stringify(postData),
                 contentType: "application/json",
                 success: function(response) {
@@ -236,7 +280,6 @@
                         },500)
                     }
                     else {
-                        console.log(response.message)
                         toastr.error(response.message)
                     }
 

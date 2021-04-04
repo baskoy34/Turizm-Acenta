@@ -34,4 +34,30 @@ public class StaffService {
         }
        return response;
     }
+
+    public GeneralResponse delete(Long id, AcentaUser acentaUser){
+        GeneralResponse response = GeneralResponse.builder().build();
+        try {
+            staffDao.delete(id, acentaUser);
+            response.setResult(0);
+            response.setMessage(Constants.success);
+        } catch (Exception e){
+            response.setResult(1);
+            response.setMessage(Constants.err);
+        }
+        return response;
+    }
+
+    public GeneralResponse update(Staff staff, AcentaUser acentaUser){
+        GeneralResponse response = GeneralResponse.builder().build();
+        try {
+            staffDao.update(staff, acentaUser);
+            response.setResult(0);
+            response.setMessage(Constants.success);
+        } catch (Exception e){
+            response.setResult(1);
+            response.setMessage(Constants.err);
+        }
+        return response;
+    }
 }
