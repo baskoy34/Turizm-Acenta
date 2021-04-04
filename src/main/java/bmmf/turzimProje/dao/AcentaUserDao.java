@@ -32,7 +32,7 @@ public class AcentaUserDao {
         sqlQuery.setParameter("username", userDto.getUsername());
         sqlQuery.executeUpdate();
 
-        BigInteger result = (BigInteger) session.createSQLQuery("SELECT LAST_INSERT_ID()")
+        BigInteger result = (BigInteger) session.createSQLQuery("SELECT mytable_seq.nextval MyTableID FROM DUAL()")
                 .uniqueResult();
         int userID = result.intValue();
 
