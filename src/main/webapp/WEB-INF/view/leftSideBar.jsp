@@ -143,6 +143,12 @@
                                     <span class="hide-menu"> Horizontal Sidebar </span>
                                 </a>
                             </li>
+                            <li class="sidebar-item">
+                                <a href="<c:url value="/acenta/getTour"/>" class="sidebar-link">
+                                    <i class="mdi mdi-view-module"></i>
+                                    <span class="hide-menu"> Tur ekle </span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

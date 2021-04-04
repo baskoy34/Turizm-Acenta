@@ -2,8 +2,11 @@ package bmmf.turzimProje.controller;
 
 import bmmf.turzimProje.model.AcentaUser;
 import bmmf.turzimProje.model.Staff;
+import bmmf.turzimProje.model.Tour;
 import bmmf.turzimProje.model.dto.GeneralResponse;
+import bmmf.turzimProje.model.enums.TourType;
 import bmmf.turzimProje.service.StaffService;
+import bmmf.turzimProje.service.TourService;
 import bmmf.turzimProje.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,8 @@ public class AcentaController {
 
     @Autowired
     private StaffService staffService;
+    @Autowired
+    private TourService tourService;
 
     @GetMapping
     public ModelAndView dashboard(HttpSession httpSession){
@@ -33,4 +38,24 @@ public class AcentaController {
         AcentaUser acentaUser = (AcentaUser) httpSession.getAttribute(Constants.userInfoKey);
         return staffService.save(staff, acentaUser);
     }
+
+
+    @PostMapping("createTour")
+    public GeneralResponse createTour(@RequestBody Tour tour,HttpSession httpSession){
+        AcentaUser acentaUser = (AcentaUser) httpSession.getAttribute(Constants.userInfoKey);
+        return tourService.save(tour,acentaUser);
+    }
+
+
+    @GetMapping("getTour")
+    public ModelAndView getTour(HttpSession httpSession){
+        AcentaUser acentaUser = (AcentaUser) httpSession.getAttribute(Constants.userInfoKey);
+        ModelAndView view =new ModelAndView("/createTour");
+        view.addObject("staffs",staffService.findAllStaff(acentaUser));
+        view.addObject("tourTypes", TourType.values());
+
+        return view;
+
+    }
+
 }
