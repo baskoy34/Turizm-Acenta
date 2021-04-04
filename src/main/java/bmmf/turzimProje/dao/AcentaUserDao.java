@@ -26,7 +26,7 @@ public class AcentaUserDao {
 
     public void createAcenteUser(CreateUserDto userDto){
         Session session = sessionFactory.getCurrentSession();
-        SQLQuery sqlQuery = session.createSQLQuery("insert into users(password, userType, username) values (:password, :userType, :username) " );
+        SQLQuery sqlQuery = session.createSQLQuery("INSERT INTO users(password, userType, username) values (:password, :userType, :username)");
         sqlQuery.setParameter("password", userDto.getPassword());
         sqlQuery.setParameter("userType", userDto.getUserType().getDescription());
         sqlQuery.setParameter("username", userDto.getUsername());
@@ -36,7 +36,7 @@ public class AcentaUserDao {
                 .uniqueResult();
         int userID = result.intValue();
 
-        SQLQuery sqlQuery2 = session.createSQLQuery("insert into acentauser(acentaName, UserID) values (:acentaName, :userId)");
+        SQLQuery sqlQuery2 = session.createSQLQuery("INSERT INTO acentauser(acentaName, UserID) values (:acentaName, :userId)");
         sqlQuery2.setParameter("acentaName", userDto.getAcentaName());
         sqlQuery2.setParameter("userId",userID);
         sqlQuery2.executeUpdate();

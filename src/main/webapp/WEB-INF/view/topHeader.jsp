@@ -20,13 +20,6 @@
                         <img src="../../assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
                     </b>
                     <!--End Logo icon -->
-                    <!-- Logo text -->
-                    <span class="logo-text">
-                                <!-- dark Logo text -->
-                                <img src="../../assets/images/logo-text.png" alt="homepage" class="dark-logo" />
-                        <!-- Light Logo text -->
-                                <img src="../../assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
-                            </span>
                 </a>
                 <a class="sidebartoggler d-none d-md-block" href="javascript:void(0)" data-sidebartype="mini-sidebar">
                     <i class="mdi mdi-toggle-switch mdi-toggle-switch-off font-20"></i>
@@ -89,7 +82,6 @@
                                     <!-- Message -->
                                     <a href="javascript:void(0)" class="message-item">
                                                 <span class="user-img">
-                                                    <img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle">
                                                     <span class="profile-status online pull-right"></span>
                                                 </span>
                                         <div class="mail-contnet">
