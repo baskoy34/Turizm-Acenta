@@ -18,5 +18,6 @@ public class Admins {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "UserID", nullable = false)
     private Users user;
+
     private String adminName;
 }

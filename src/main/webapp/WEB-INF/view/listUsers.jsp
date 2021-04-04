@@ -79,33 +79,42 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Users</h4>
+                            <h4 class="card-title">Kullanıcılar</h4>
                             <h6 class="card-subtitle"></h6>
                             <div class="table-responsive">
                                 <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
                                     <thead>
                                       <tr>
                                         <th>No</th>
-                                        <th>username</th>
-                                        <th>password</th>
-                                        <th>userType</th>
+                                        <th>Kullanıcı Adı</th>
+                                        <th>Şifre</th>
+                                        <th>Kullanıcı Rol</th>
+                                         <th>Acenta Adı</th>
                                         <th>Update</th>
                                         <th>Delete</th>
                                         <th></th>
                                       </tr>
                                     </thead>
 
-                                    <tbody>
 
+
+                                    <tbody>
                                     <c:forEach var="tempUsers" items="${users}" >
+
+                                        <c:url var="updateLink" value="/admin/createUser">
+                                            <c:param name="userId" value="${tempUsers.id}" />
+                                        </c:url>
+
+
                                         <tr>
                                             <td><span class="label label-danger">${tempUsers.id}</td>
                                             <td><span class="label label-inverse">${tempUsers.username}</span></td>
                                             <td>${tempUsers.password}</td>
                                             <td><span class="label label-info">${tempUsers.userType}</span></td>
+<%--                                        <td><span class="label label-info">${tempUsers.acentaUserSet}</span></td>--%>
 
                                              <td>
-                                                 <a class="updateModel" data-id="${tempUsers.id}" data-username="${tempUsers.username}" data-password="${tempUsers.password}" data-user="${tempUsers.userType}"  >
+                                                 <a href="${updateLink}" >
                                                      <i class="fas fa-edit" data-toggle="tooltip" data-placement="bottom" title=""></i>
                                                  </a>
                                              </td>
@@ -118,118 +127,17 @@
                                         </tr>
                                     </c:forEach>
                                     </tbody>
+
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End PAge Content -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Right sidebar -->
-            <!-- ============================================================== -->
-            <!-- .right-sidebar -->
-            <!-- ============================================================== -->
-            <!-- End Right sidebar -->
-            <!-- ============================================================== -->
+            </div>>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Container fluid  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- footer -->
-        <!-- ============================================================== -->
         <jsp:include page="footer.jsp"></jsp:include>
-        <!-- ============================================================== -->
-        <!-- End footer -->
-        <!-- ============================================================== -->
     </div>
 </div>
-
-    <!-- ============================================================== -->
-    <!-- End Page wrapper  -->
-
-    <!-- ============================================================== -->
-
-
-<div class="modal fadeIn modal-profile" id="updateModel" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <form action="updateUser" method="post">
-
-                    <div>
-
-                        <div class="input-group-group">
-                            <label>Kullanıcı Adı:</label>
-                            <input id="username" type="text" name="username"/>
-                        </div>
-
-                        <div class="input-group">
-                            <label>Şifre:</label>
-                            <input id="password" type="text" name="password"/>
-                        </div>
-                        <div class="input-group">
-                            <label>Kullanıcı Rol:</label>
-                            <input id="userType" type="text" name="UserType"/>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div class="modal fade modal-profile" id="deleteRecordModal" tabindex="-1" role="dialog"
-     aria-labelledby="updateService" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-
-                <h5 class="modal-title">Kaydı silmek üzeresiniz!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                Silmek istediğinize emin misiniz ?
-            </div>
-
-            <div class="modal-footer">
-                <a class="btn btn-danger" id="btnDeleteYes">Evet</a>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Hayır</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $(".updateModel").click(function () {
-            $('#updateModel #username').val($(this).data('username'))
-            $('#updateModel #password').val($(this).data('password'))
-            $('#updateModel #userType').val($(this).data('user'))
-            $('#updateModel').show();
-            console.log($(this).data('user'))
-        });
-    })
-
-</script>
 
 </body>
 

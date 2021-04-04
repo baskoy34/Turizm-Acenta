@@ -37,10 +37,18 @@ public class AdminController {
 
     @GetMapping("/createUser")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView getCreateUser(HttpSession httpSession){
+    public ModelAndView getCreateUser(@RequestParam(value = "userId", required = false) Long theId, HttpSession httpSession){
+
         ModelAndView modelAndView = new ModelAndView("createUser");
         List<UserType> userTypes = Arrays.asList(UserType.values());
         modelAndView.addObject("userRoles",userTypes);
+        modelAndView.addObject("users", new Users());
+
+        if (theId != null){
+            Users users = adminService.getUser(theId);
+            modelAndView.addObject("users", users);
+        }
+
         return modelAndView;
     }
 
@@ -58,18 +66,6 @@ public class AdminController {
     public ModelAndView getUserList(HttpSession httpSession){
         ModelAndView modelAndView = new ModelAndView("listUsers");
         List<Users> users = adminService.listAcentaUser();
-        modelAndView.addObject("users", users);
-        return modelAndView;
-    }
-
-    @GetMapping("/updateUser")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ResponseBody
-    public ModelAndView updateUser(@RequestParam("userId") int theId){
-        Users users = adminService.getUser(theId);
-        ModelAndView modelAndView = new ModelAndView("updateUser");
-        List<UserType> userTypes = Arrays.asList(UserType.values());
-        modelAndView.addObject("userRoles", userTypes);
         modelAndView.addObject("users", users);
         return modelAndView;
     }

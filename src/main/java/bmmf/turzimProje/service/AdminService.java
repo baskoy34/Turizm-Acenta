@@ -54,7 +54,7 @@ public class AdminService {
         return adminDao.listUsers();
     }
 
-    public Users getUser(int theId) {
+    public Users getUser(Long theId) {
         return adminDao.getUser(theId);
     }
 }

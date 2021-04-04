@@ -26,7 +26,7 @@ public class AcentaUserDao {
 
     public void createAcenteUser(CreateUserDto userDto){
         Session session = sessionFactory.getCurrentSession();
-        SQLQuery sqlQuery = session.createSQLQuery("insert into users(password, userType, username) values (:password, :userType, :username)");
+        SQLQuery sqlQuery = session.createSQLQuery("insert into users(password, userType, username) values (:password, :userType, :username) " );
         sqlQuery.setParameter("password", userDto.getPassword());
         sqlQuery.setParameter("userType", userDto.getUserType().getDescription());
         sqlQuery.setParameter("username", userDto.getUsername());

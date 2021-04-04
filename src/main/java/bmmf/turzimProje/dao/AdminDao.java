@@ -33,8 +33,8 @@ public class AdminDao {
         return users;
     }
 
-    public Users getUser(int theId) {
-        SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery("SELECT * FROM users u where u.id=:theid").addEntity(Users.class);
+    public Users getUser(Long theId) {
+        SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery("SELECT * FROM users where id=:theid").addEntity(Users.class);
         sqlQuery.setParameter("theid", theId);
         Users user = (Users) sqlQuery.getSingleResult();
         return user;
