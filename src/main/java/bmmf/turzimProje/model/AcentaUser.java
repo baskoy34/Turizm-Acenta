@@ -32,7 +32,6 @@ public class AcentaUser {
     @OneToMany(mappedBy = "acentaUser")
     private Set<Staff> staffs = new HashSet<>();
 
-
 }
 
 

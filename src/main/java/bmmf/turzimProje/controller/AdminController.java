@@ -7,6 +7,7 @@ import bmmf.turzimProje.model.dto.CreateUserDto;
 import bmmf.turzimProje.model.dto.GeneralResponse;
 import bmmf.turzimProje.model.enums.UserType;
 import bmmf.turzimProje.service.AdminService;
+import bmmf.turzimProje.service.UserService;
 import bmmf.turzimProje.utils.Constants;
 import oracle.jdbc.proxy.annotation.Post;
 import org.apache.catalina.User;
@@ -27,6 +28,9 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView index(HttpSession httpSession){
@@ -35,19 +39,25 @@ public class AdminController {
         return modelAndView;
     }
 
+    @GetMapping("/listUser")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView getUserList(HttpSession httpSession){
+        ModelAndView modelAndView = new ModelAndView("listUsers");
+        List<UserType> userTypes = Arrays.asList(UserType.values());
+        List<CreateUserDto> users = adminService.getAllAdminAcenta();
+        modelAndView.addObject("users", users);
+        modelAndView.addObject("userRoles",userTypes);
+        return modelAndView;
+    }
+
     @GetMapping("/createUser")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView getCreateUser(@RequestParam(value = "userId", required = false) Long theId, HttpSession httpSession){
+    public ModelAndView getCreateUser(HttpSession httpSession){
 
         ModelAndView modelAndView = new ModelAndView("createUser");
         List<UserType> userTypes = Arrays.asList(UserType.values());
         modelAndView.addObject("userRoles",userTypes);
         modelAndView.addObject("users", new Users());
-
-        if (theId != null){
-            Users users = adminService.getUser(theId);
-            modelAndView.addObject("users", users);
-        }
 
         return modelAndView;
     }
@@ -60,14 +70,28 @@ public class AdminController {
         return response;
     }
 
-    @GetMapping("/listUser")
+
+    @DeleteMapping("/deleteUser")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseBody
-    public ModelAndView getUserList(HttpSession httpSession){
-        ModelAndView modelAndView = new ModelAndView("listUsers");
-        List<Users> users = adminService.listAcentaUser();
-        modelAndView.addObject("users", users);
-        return modelAndView;
+    public GeneralResponse deleteUser(@RequestBody CreateUserDto userDto){
+        GeneralResponse response = adminService.deleteUser(userDto);
+            return response;
     }
+
+
+    @PutMapping("/updateUser")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseBody
+    public GeneralResponse updateUser(@RequestBody CreateUserDto userDto){
+
+        GeneralResponse response = adminService.updateUser(userDto);
+        return response;
+
+    }
+
+
+
+
 
 }
