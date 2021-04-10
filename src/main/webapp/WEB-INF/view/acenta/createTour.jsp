@@ -18,8 +18,9 @@
     <title>Nice admin Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
     <!-- Custom CSS -->
-    <link href="../../resources/css/style.min.css" rel="stylesheet">
-    <link href="../../resources/css/toastr.css" rel="stylesheet">
+    <link href="../../../resources/css/style.min.css" rel="stylesheet">
+    <link href="../../../resources/css/toastr.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -34,14 +35,14 @@
     <!-- ============================================================== -->
     <!-- Topbar header - style you can find in pages.scss -->
     <!-- ============================================================== -->
-    <jsp:include page="topHeader.jsp"></jsp:include>
+    <jsp:include page="../topHeader.jsp"></jsp:include>
     <!-- ============================================================== -->
     <!-- End Topbar header -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     <!-- Left Sidebar - style you can find in sidebar.scss  -->
     <!-- ============================================================== -->
-    <jsp:include page="leftSideBar.jsp"></jsp:include>
+    <jsp:include page="../leftSideBar.jsp"></jsp:include>
     <div class="page-wrapper">
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->
@@ -101,9 +102,9 @@
                                         <div class="col-md-6">
                                             <div class="form-group has-success">
                                                 <label class="control-label">Personel Listesi</label>
-                                                <select class="form-control custom-select" name="staff" multiple>
+                                                <select class="js-example-basic-multiple" name="personels[]" style="width: 100%;color: black" multiple="multiple" required>
                                                     <c:forEach items="${staffs}" var="staff">
-                                                        <option value="${staff}">${staff}</option>
+                                                        <option value="${staff.id}">${staff.firstName}-${staff.lastName}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -125,14 +126,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Tur Açıklaması</label>
-                                                    <input type="text" id="details" name="details" class="form-control">
+                                                    <input type="text" id="details" name="description" class="form-control" required>
                                                     <%--<small class="form-control-feedback"> This is inline help </small> --%>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Tur konumu </label>
-                                                    <input type="text" id="location" class="form-control" name="location">
+                                                    <input type="text" id="location" class="form-control" name="location" required>
                                                     <%--<small class="form-control-feedback"> This is inline help </small> --%>
                                                 </div>
                                             </div>
@@ -141,14 +142,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Tur Kapasitesi</label>
-                                                    <input type="number" id="capasity" name="capasity" class="form-control">
+                                                    <input type="number" id="capasity" name="capacity" class="form-control" required>
                                                     <%--<small class="form-control-feedback"> This is inline help </small> --%>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Tur Ücreti </label>
-                                                    <input type="number" id="price" class="form-control" name="price">
+                                                    <input type="number" id="price" class="form-control" name="price" required>
                                                     <%--<small class="form-control-feedback"> This is inline help </small> --%>
                                                 </div>
                                             </div>
@@ -174,7 +175,7 @@
                     </div>
                 </div>
             </div>
-            <jsp:include page="footer.jsp"></jsp:include>
+            <jsp:include page="../footer.jsp"></jsp:include>
         </div>
     </div>
 </div>
@@ -189,6 +190,12 @@
         });
     });
     $(document).ready(function() {
+
+        $('.js-example-basic-multiple').select2({
+            placeholder: "Personel Seç",
+            allowClear: true
+        });
+
         $("#createForm").submit(function(event) {
             event.preventDefault();
             var postData = $('#createForm').serializeObject();

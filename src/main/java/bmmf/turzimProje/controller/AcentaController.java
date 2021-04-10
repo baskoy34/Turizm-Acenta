@@ -1,22 +1,20 @@
 package bmmf.turzimProje.controller;
 
 import bmmf.turzimProje.model.AcentaUser;
-import bmmf.turzimProje.model.Client;
 import bmmf.turzimProje.model.Staff;
-import bmmf.turzimProje.model.Tour;
 import bmmf.turzimProje.model.dto.GeneralResponse;
+import bmmf.turzimProje.model.dto.TourDto;
 import bmmf.turzimProje.model.enums.TourType;
 import bmmf.turzimProje.service.StaffService;
 import bmmf.turzimProje.service.TourService;
 import bmmf.turzimProje.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/acenta")
@@ -59,12 +57,9 @@ public class AcentaController {
 
     @PostMapping("createTour")
     @ResponseBody
-    public GeneralResponse createTour(@RequestBody Tour tour, HttpSession httpSession){
-
-
+    public GeneralResponse createTour(@RequestBody TourDto tourDto, HttpSession httpSession){
         AcentaUser acentaUser = (AcentaUser) httpSession.getAttribute(Constants.userInfoKey);
-
-        return tourService.save(tour,acentaUser);
+        return tourService.save(tourDto,acentaUser);
 
     }
 
@@ -72,12 +67,25 @@ public class AcentaController {
     @GetMapping("getTour")
     public ModelAndView getTour(HttpSession httpSession){
         AcentaUser acentaUser = (AcentaUser) httpSession.getAttribute(Constants.userInfoKey);
-        ModelAndView view =new ModelAndView("/createTour");
+        ModelAndView view =new ModelAndView("acenta/createTour");
         view.addObject("staffs",staffService.findAllStaff(acentaUser));
         view.addObject("tourTypes", TourType.values());
 
         return view;
+    }
 
+    @GetMapping("tours")
+    public ModelAndView getTours(HttpSession httpSession){
+        AcentaUser acentaUser = (AcentaUser) httpSession.getAttribute(Constants.userInfoKey);
+        ModelAndView view =new ModelAndView("acenta/tours");
+//        view.addObject("staffs",staffService.findAllStaff(acentaUser));
+        return view;
+    }
+
+    @GetMapping("getTours")
+    @ResponseBody
+    public List<TourDto> findTours(@ModelAttribute TourDto tourDto){
+        return tourService.findByTour(tourDto);
     }
 
 }

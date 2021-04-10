@@ -30,4 +30,5 @@
 <script src="../../resources/js/jquery.serialize-object.js"></script>
 <script src="../../resources/js/toastr.js"></script>
 <script src="../../resources/js/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!--This page JavaScript -->

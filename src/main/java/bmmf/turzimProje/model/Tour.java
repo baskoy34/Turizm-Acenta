@@ -19,7 +19,10 @@ import java.util.Set;
 @Builder
 public class Tour implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tour_id_seq")
+    @SequenceGenerator(name = "tour_id_seq",
+            sequenceName = "tour_seq",
+            allocationSize = 1)
     private long id;
 
     private int price;
@@ -50,6 +53,6 @@ public class Tour implements Serializable {
     private Set<Staff> staff = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "acenta_tour")
+    @JoinColumn(name = "acenta_Id")
     private AcentaUser acentaUser;
 }

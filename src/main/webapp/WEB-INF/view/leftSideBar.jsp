@@ -78,79 +78,39 @@
                 <ul id="sidebarnav">
                     <li class="nav-small-cap">
                         <i class="mdi mdi-dots-horizontal"></i>
-                        <span class="hide-menu">Personal</span>
+                        <span class="hide-menu">Kullanıcılar</span>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                            <i class="mdi mdi-av-timer"></i>
-                            <span class="hide-menu">Dashboard </span>
-                            <span class="badge badge-pill badge-info ml-auto m-r-15">3</span>
+                    <li class="sidebar-item">
+                        <a href="<c:url value="/acenta"/>" class="sidebar-link">
+                            <i class="mdi mdi-view-module"></i>
+                            <span class="hide-menu">Personel Sayfası</span>
                         </a>
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item">
-                                <a href="index.html" class="sidebar-link">
-                                    <i class="mdi mdi-adjust"></i>
-                                    <span class="hide-menu"> Classic </span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="index.jsp" class="sidebar-link">
-                                    <i class="mdi mdi-adjust"></i>
-                                    <span class="hide-menu"> Analytical </span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="index3.html" class="sidebar-link">
-                                    <i class="mdi mdi-adjust"></i>
-                                    <span class="hide-menu"> Modern </span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
+                    </li>
+
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                             <i class="mdi mdi-tune"></i>
-                            <span class="hide-menu">Sidebar Type </span>
+                            <span class="hide-menu">Yönetim Paneli </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item">
-                                <a href="sidebar-type-minisidebar.html" class="sidebar-link">
-                                    <i class="mdi mdi-view-quilt"></i>
-                                    <span class="hide-menu"> Minisidebar </span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="sidebar-type-iconsidebar.html" class="sidebar-link">
-                                    <i class="mdi mdi-view-parallel"></i>
-                                    <span class="hide-menu"> Icon Sidebar </span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="sidebar-type-overlaysidebar.html" class="sidebar-link">
-                                    <i class="mdi mdi-view-day"></i>
-                                    <span class="hide-menu"> Overlay Sidebar </span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="sidebar-type-fullsidebar.html" class="sidebar-link">
-                                    <i class="mdi mdi-view-array"></i>
-                                    <span class="hide-menu"> Full Sidebar </span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="sidebar-type-horizontalsidebar.html" class="sidebar-link">
-                                    <i class="mdi mdi-view-module"></i>
-                                    <span class="hide-menu"> Horizontal Sidebar </span>
-                                </a>
-                            </li>
+
                             <li class="sidebar-item">
                                 <a href="<c:url value="/acenta/getTour"/>" class="sidebar-link">
                                     <i class="mdi mdi-view-module"></i>
                                     <span class="hide-menu"> Tur ekle </span>
                                 </a>
                             </li>
+                            <li class="sidebar-item">
+                                <a href="<c:url value="/acenta/tours"/>" class="sidebar-link">
+                                    <i class="mdi mdi-view-quilt"></i>
+                                    <span class="hide-menu">Turlar</span>
+                                </a>
+                            </li>
                         </ul>
-                    </li>
+
+
                 </ul>
             </nav>
             <!-- End Sidebar navigation -->
