@@ -75,6 +75,7 @@
                                 <h4 class="card-title">Tur bilgileri</h4>
                             </div>
                             <hr>
+                            <form id="createForm">
                             <div class="form-body">
                                 <div class="card-body">
                                     <div class="row p-t-20">
@@ -110,7 +111,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Tur Tipi</label>
-                                                <select class="form-control custom-select" name="userType" >
+                                                <select class="form-control custom-select" name="tourType" >
                                                     <c:forEach items="${tourTypes}" var="type">
                                                         <option value="${type}">${type}</option>
                                                     </c:forEach>
@@ -151,6 +152,11 @@
                                                     <%--<small class="form-control-feedback"> This is inline help </small> --%>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6">
+
+
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -174,7 +180,48 @@
 </div>
 
 <script>
+    $(function () {
 
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function(e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+    });
+    $(document).ready(function() {
+        $("#createForm").submit(function(event) {
+            event.preventDefault();
+            var postData = $('#createForm').serializeObject();
+            
+            $.ajax({
+
+                type: "post",
+                url: "createTour",
+                data: JSON.stringify(postData),
+                contentType: "application/json",
+                success: function(response) {
+                    console.log(response)
+                    if(response.result == 0){
+                        toastr.success(response.message)
+                        setTimeout(function(){
+                            location.reload()
+                        },500)
+                    }
+                    else {
+                        console.log(response.message)
+                        toastr.error(response.message)
+                    }
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+
+                    toastr.error("Bilinmeyen Bir Hata oluştu")
+                }
+            })
+
+        });
+
+    });
 
 </script>
 </body>

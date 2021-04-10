@@ -1,6 +1,7 @@
 package bmmf.turzimProje.controller;
 
 import bmmf.turzimProje.model.AcentaUser;
+import bmmf.turzimProje.model.Client;
 import bmmf.turzimProje.model.Staff;
 import bmmf.turzimProje.model.Tour;
 import bmmf.turzimProje.model.dto.GeneralResponse;
@@ -9,10 +10,12 @@ import bmmf.turzimProje.service.StaffService;
 import bmmf.turzimProje.service.TourService;
 import bmmf.turzimProje.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -55,9 +58,14 @@ public class AcentaController {
 
 
     @PostMapping("createTour")
-    public GeneralResponse createTour(@RequestBody Tour tour,HttpSession httpSession){
+    @ResponseBody
+    public GeneralResponse createTour(@RequestBody Tour tour, HttpSession httpSession){
+
+
         AcentaUser acentaUser = (AcentaUser) httpSession.getAttribute(Constants.userInfoKey);
+
         return tourService.save(tour,acentaUser);
+
     }
 
 

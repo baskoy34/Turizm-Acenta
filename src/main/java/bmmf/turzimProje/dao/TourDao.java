@@ -24,15 +24,17 @@ public class TourDao {
     }
 
     public void insert (Tour tour,AcentaUser acentaUser){
-        String query = "insert into tour(price, startDate, endDate, location,capasity, details,acenta_ID) values(:price, :startDate, :endDate, :location,:capasity,  :details,:acentaId)";
+        String query = "insert into tour(price, startDate, endDate, location,capasity, details,acenta_tour,tourtype) values(:price, :startDate, :endDate, :location,:capasity,  :details,:acentaId,:tourType)";
         SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery(query);
         sqlQuery.setParameter("price",tour.getPrice());
         sqlQuery.setParameter("startDate",tour.getStartDate());
         sqlQuery.setParameter("endDate",tour.getEndDate());
         sqlQuery.setParameter("location",tour.getLocation());
         sqlQuery.setParameter("capasity",tour.getCapasity());
+
         sqlQuery.setParameter("details",tour.getDetails());
         sqlQuery.setParameter("acentaId",acentaUser.getId());
+        sqlQuery.setParameter("tourType",tour.getTourType().getName());
 
         sqlQuery.executeUpdate();
 

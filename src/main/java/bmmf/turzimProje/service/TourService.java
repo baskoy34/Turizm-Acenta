@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
+
 @Service
 @Transactional
 public class TourService {
@@ -20,6 +25,23 @@ public class TourService {
 
     public GeneralResponse save(Tour tour, AcentaUser acentaUser){
         GeneralResponse response = GeneralResponse.builder().build();
+        try{
+            DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate startDate = LocalDate.from(f.parse(tour.getStartDate()));
+            LocalDate endDate = LocalDate.from(f.parse(tour.getEndDate()));
+            if (startDate.isAfter(endDate)){
+                response.setMessage("Başlangıç tarihi, bitiş tarihinden büyük");
+                response.setResult(1);
+                return response;
+            }
+        }catch (Exception e){
+            response.setResult(1);
+            response.setMessage("Tarih giriniz");
+            return response;
+
+
+        }
+
         try {
             tourDao.insert(tour, acentaUser);
             response.setResult(0);
