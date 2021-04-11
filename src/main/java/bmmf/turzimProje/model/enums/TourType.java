@@ -4,10 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 public enum  TourType {
-    GEZİ("Gezi Turu"),
-    TEKNE("Tekne Turu"),
-    PARASUT("Parasut Turu"),
-    JEEPSAFARI("JEEP SAFARI");
+    GEZİ("GEZİ"),
+    TEKNE("TEKNE"),
+    PARASUT("PARASUT"),
+    JEEPSAFARI("JEEPSAFARI");
 
 
     TourType(String name) {

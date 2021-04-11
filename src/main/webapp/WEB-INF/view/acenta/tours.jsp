@@ -81,10 +81,10 @@
                                                 <th>Başlangic Tarihi</th>
                                                 <th>Bitiş Tarihi</th>
                                                 <th>Tur tipi</th>
-                                                <th>Lokasyon</th>
                                                 <th>Tur Açıklaması</th>
-                                                <th>Ücret</th>
+                                                <th>Lokasyon</th>
                                                 <th>Kalan Bilet</th>
+                                                <th>Ücret</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -95,10 +95,10 @@
                                                     <th data-name="startDate">Başlangic Tarihi</th>
                                                     <th data-name="endDate">Bitiş Tarihi</th>
                                                     <th data-name="tourType">Tur tipi</th>
+                                                    <th data-name="details">Tur Açıklaması</th>
                                                     <th data-name="location">Lokasyon</th>
-                                                    <th data-name="description">Tur Açıklaması</th>
+                                                    <th data-name="capasity">Kalan Bilet</th>
                                                     <th data-name="price">Ücret</th>
-                                                    <th data-name="capacity">Kalan Bilet</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -143,16 +143,16 @@
                 data: function (data) {
                     delete data.columns;
                     if($.trim($('input[name=tourType]').val()).length){
-                        data.tourQuery = $('input[name=tourType]').val();
+                        data.tourType = $('input[name=tourType]').val();
                     }
-                    if($.trim($('input[name=description]').val()).length){
-                        data.description = $('input[name=description]').val();
+                    if($.trim($('input[name=details]').val()).length){
+                        data.details = $('input[name=details]').val();
                     }
                     if($.trim($('input[name=location]').val()).length){
                         data.location = $('input[name=location]').val();
                     }
-                    if($.trim($('input[name=capacity]').val()).length){
-                        data.capacity = $('input[name=capacity]').val();
+                    if($.trim($('input[name=capasity]').val()).length){
+                        data.capasity = $('input[name=capasity]').val();
                     }
                     if($.trim($('input[name=price]').val()).length){
                         data.price = $('input[name=price]').val();
@@ -165,9 +165,9 @@
                 { data: "startDate", name: 'startDate', searchable: true, orderable: false},
                 { data: "endDate", name: 'endDate', searchable: true, orderable: false},
                 { data: "tourType", name: 'tourType', orderable: false},
-                { data: "description", name: 'description', orderable: false },
+                { data: "details", name: 'details', orderable: false },
                 { data: "location", name: 'location', searchable: true, orderable: false},
-                { data: "capacity", name: 'capacity', searchable: true, orderable: false},
+                { data: "capasity", name: 'capasity', searchable: true, orderable: false},
                 { data: "price", name: 'price', searchable: true, orderable: false}],
             columnDefs: [
                 { orderable: false, targets: [ 1, 2, 3, 4, 5, 6, 7 ] } //This part is ok now

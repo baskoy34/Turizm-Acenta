@@ -5,6 +5,7 @@ import bmmf.turzimProje.model.Client;
 import bmmf.turzimProje.model.Tour;
 import bmmf.turzimProje.model.Users;
 import bmmf.turzimProje.model.dto.GeneralResponse;
+import bmmf.turzimProje.model.dto.QueryParam;
 import bmmf.turzimProje.model.dto.TourDto;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -37,19 +38,24 @@ public class TourDao {
         sqlQuery.setParameter("startDate",tour.getStartDate());
         sqlQuery.setParameter("endDate",tour.getEndDate());
         sqlQuery.setParameter("location",tour.getLocation());
-        sqlQuery.setParameter("capasity",tour.getCapacity());
+        sqlQuery.setParameter("capasity",tour.getCapasity());
         sqlQuery.setParameter("id",tourId);
-        sqlQuery.setParameter("details",tour.getDescription());
+        sqlQuery.setParameter("details",tour.getDetails());
         sqlQuery.setParameter("acentaId",acentaUser.getId());
-        sqlQuery.setParameter("tourType",tour.getTourType().getName());
+        sqlQuery.setParameter("tourType",tour.getTourType());
 
         sqlQuery.executeUpdate();
         return  tourId;
     }
 
-    public List<Tour> findByTour(TourDto tourDto) {
+    public List<Tour> findByTour(String query2, List<QueryParam> queryParams) {
+        String query = "select * from tour where " + query2;
         Session session = sessionFactory.getCurrentSession();
-        SQLQuery sqlQuery = session.createSQLQuery("select * from tour");
+        SQLQuery sqlQuery = session.createSQLQuery(query);
+        queryParams.forEach(s -> {
+            System.out.println(s.getFieldName()+ " " + s.getValue());
+            sqlQuery.setParameter(s.getFieldName(),s.getValue());
+        });
         sqlQuery.addEntity(Tour.class);
         return (List<Tour>) sqlQuery.list();
     }

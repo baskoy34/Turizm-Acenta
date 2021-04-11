@@ -126,7 +126,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Tur Açıklaması</label>
-                                                    <input type="text" id="details" name="description" class="form-control" required>
+                                                    <input type="text" id="details" name="details" class="form-control" required>
                                                     <%--<small class="form-control-feedback"> This is inline help </small> --%>
                                                 </div>
                                             </div>
@@ -142,7 +142,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Tur Kapasitesi</label>
-                                                    <input type="number" id="capasity" name="capacity" class="form-control" required>
+                                                    <input type="number" id="capasity" name="capasity" class="form-control" required>
                                                     <%--<small class="form-control-feedback"> This is inline help </small> --%>
                                                 </div>
                                             </div>

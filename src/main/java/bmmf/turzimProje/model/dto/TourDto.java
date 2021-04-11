@@ -16,12 +16,12 @@ public class TourDto {
     private String endDate;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Long> personels;
-    private TourType tourType;
-    private String description;
+    private String tourType;
+    private String details;
     private String location;
-    private Integer capacity;
+    private Integer capasity;
     private Integer price;
-    private String tourQuery;
+    private Long acenta_Id;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String personelNames;
 }

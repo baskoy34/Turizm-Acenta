@@ -73,25 +73,9 @@ public class TourService {
     }
 
     public List<TourDto> findByTour(TourDto tourDto) throws Exception{
-        List<Tour> tours = tourDao.findByTour(tourDto);
 
-        return tours.stream().map(tour ->
-                TourDto.builder()
-                        .id(tour.getId())
-                        .capacity(tour.getCapasity())
-                        .description(tour.getDetails())
-                        .endDate(tour.getEndDate())
-                        .startDate(tour.getStartDate())
-                        .location(tour.getLocation())
-                        .price(tour.getPrice())
-                        .tourType(tour.getTourType())
-                        .build()
-        ).collect(Collectors.toList());
-    }
-
-    private String createQueryParam(TourDto tourDto){
         List<Field> fields = Arrays.asList(TourDto.class.getDeclaredFields());
-        List<QueryParam> sf = fields.stream().map(s -> {
+        List<QueryParam> queryParams = fields.stream().map(s -> {
             s.setAccessible(true);
             QueryParam param = new QueryParam();
             try {
@@ -103,6 +87,49 @@ public class TourService {
             }
             return param;
         }).filter(s-> nonNull(s) && nonNull(s.getValue())).collect(Collectors.toList());
-        return "";
+        String query = createQueryParam(queryParams);
+        List<Tour> tours = tourDao.findByTour(query, queryParams);
+
+        return tours.stream().map(tour ->
+                TourDto.builder()
+                        .id(tour.getId())
+                        .capasity(tour.getCapasity())
+                        .details(tour.getDetails())
+                        .endDate(tour.getEndDate())
+                        .startDate(tour.getStartDate())
+                        .location(tour.getLocation())
+                        .price(tour.getPrice())
+                        .tourType(tour.getTourType().getName())
+                        .build()
+        ).collect(Collectors.toList());
+    }
+
+    private String createQueryParam(List<QueryParam> queryParams){
+
+        StringBuilder stringBuilder = new StringBuilder();
+        if(queryParams.size()>1){
+            for(int i = 0; i<queryParams.size(); i++){
+                if(i == 0){
+                    stringBuilder.append(getQuery(queryParams.get(i)));
+                }else {
+                    stringBuilder.append(" and ");
+                    stringBuilder.append(getQuery(queryParams.get(i)));
+                }
+            }
+        } else if (queryParams.size() == 1){
+            stringBuilder.append(getQuery(queryParams.get(0)));
+        }
+        return stringBuilder.toString();
+    }
+
+    private String getQuery(QueryParam queryParam){
+        String query = "";
+        if(queryParam.getType().equals(String.class)){
+            query = "LOWER("+queryParam.getFieldName()+")"+ " LIKE :"+queryParam.getFieldName();
+            queryParam.setValue("%"+queryParam.getValue().toString().toLowerCase()+"%");
+        } else {
+            query = queryParam.getFieldName() + "=:"+queryParam.getFieldName();
+        }
+        return query;
     }
 }
