@@ -6,6 +6,7 @@ import bmmf.turzimProje.model.AcentaUser;
 import bmmf.turzimProje.model.Staff;
 import bmmf.turzimProje.model.Tour;
 import bmmf.turzimProje.model.dto.GeneralResponse;
+import bmmf.turzimProje.model.dto.QueryParam;
 import bmmf.turzimProje.model.dto.TourDto;
 import bmmf.turzimProje.utils.Constants;
 import org.apache.commons.lang3.StringUtils;
@@ -14,10 +15,15 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
 
 
 @Service
@@ -66,8 +72,9 @@ public class TourService {
         return response;
     }
 
-    public List<TourDto> findByTour(TourDto tourDto){
+    public List<TourDto> findByTour(TourDto tourDto) throws Exception{
         List<Tour> tours = tourDao.findByTour(tourDto);
+
         return tours.stream().map(tour ->
                 TourDto.builder()
                         .id(tour.getId())
@@ -80,5 +87,22 @@ public class TourService {
                         .tourType(tour.getTourType())
                         .build()
         ).collect(Collectors.toList());
+    }
+
+    private String createQueryParam(TourDto tourDto){
+        List<Field> fields = Arrays.asList(TourDto.class.getDeclaredFields());
+        List<QueryParam> sf = fields.stream().map(s -> {
+            s.setAccessible(true);
+            QueryParam param = new QueryParam();
+            try {
+                param.setFieldName(s.getName());
+                param.setType(s.getType());
+                param.setValue(s.get(tourDto));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            return param;
+        }).filter(s-> nonNull(s) && nonNull(s.getValue())).collect(Collectors.toList());
+        return "";
     }
 }

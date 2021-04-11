@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TourDto {
-    private long id;
+    private Long id;
     private String startDate;
     private String endDate;
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -19,8 +19,9 @@ public class TourDto {
     private TourType tourType;
     private String description;
     private String location;
-    private int capacity;
-    private int price;
+    private Integer capacity;
+    private Integer price;
+    private String tourQuery;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String personelNames;
 }

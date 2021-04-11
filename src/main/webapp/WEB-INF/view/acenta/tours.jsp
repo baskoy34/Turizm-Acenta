@@ -80,9 +80,9 @@
                                                 <th>id</th>
                                                 <th>Başlangic Tarihi</th>
                                                 <th>Bitiş Tarihi</th>
-                                                <th>Tur Açıklaması</th>
-                                                <th>Lokasyon</th>
                                                 <th>Tur tipi</th>
+                                                <th>Lokasyon</th>
+                                                <th>Tur Açıklaması</th>
                                                 <th>Ücret</th>
                                                 <th>Kalan Bilet</th>
                                             </tr>
@@ -94,9 +94,9 @@
                                                     <th data-name="id">id</th>
                                                     <th data-name="startDate">Başlangic Tarihi</th>
                                                     <th data-name="endDate">Bitiş Tarihi</th>
-                                                    <th data-name="description">Tur Açıklaması</th>
-                                                    <th data-name="location">Lokasyon</th>
                                                     <th data-name="tourType">Tur tipi</th>
+                                                    <th data-name="location">Lokasyon</th>
+                                                    <th data-name="description">Tur Açıklaması</th>
                                                     <th data-name="price">Ücret</th>
                                                     <th data-name="capacity">Kalan Bilet</th>
                                                 </tr>
@@ -134,32 +134,38 @@
         var tableSearching = $('#file_export').DataTable({
             serverSide: true,
             processing: false,
-            paginate: false,
-            lengthChange: false,
-            searching: false,
             ordering: false,
             ajax: {
                 url: "/acenta/getTours",
-                type: "POST",
+                type: "get",
                 dataType: 'json',
                 dataSrc: "",
                 data: function (data) {
                     delete data.columns;
-                    data.startDate = $('input[name=startDate]').val();
-                    data.endDate = $('input[name=endDate]').val();
-                    data.tourType = $('input[name=tourType]').val();
-                    data.description = $('select[name=description]').val();
-                    data.location = $('select[name=location]').val();
-                    data.capacity = $('select[name=capacity]').val();
-                    data.price = $('select[name=price]').val();
+                    if($.trim($('input[name=tourType]').val()).length){
+                        data.tourQuery = $('input[name=tourType]').val();
+                    }
+                    if($.trim($('input[name=description]').val()).length){
+                        data.description = $('input[name=description]').val();
+                    }
+                    if($.trim($('input[name=location]').val()).length){
+                        data.location = $('input[name=location]').val();
+                    }
+                    if($.trim($('input[name=capacity]').val()).length){
+                        data.capacity = $('input[name=capacity]').val();
+                    }
+                    if($.trim($('input[name=price]').val()).length){
+                        data.price = $('input[name=price]').val();
+                    }
+
                 },
             },
             columns: [
                 { data: "id", "visible": false , orderable: false},
-                { data: "startDate", name: 'startDate', orderable: false},
-                { data: "endDate", name: 'endDate', orderable: false},
-                { data: "tourType", name: 'tourType', searchable: true , orderable: false},
-                { data: "description", name: 'description', searchable: true, orderable: false },
+                { data: "startDate", name: 'startDate', searchable: true, orderable: false},
+                { data: "endDate", name: 'endDate', searchable: true, orderable: false},
+                { data: "tourType", name: 'tourType', orderable: false},
+                { data: "description", name: 'description', orderable: false },
                 { data: "location", name: 'location', searchable: true, orderable: false},
                 { data: "capacity", name: 'capacity', searchable: true, orderable: false},
                 { data: "price", name: 'price', searchable: true, orderable: false}],
@@ -188,7 +194,10 @@
         $('.text-inputs-searching tfoot th').each(function() {
             var title = $(this).text();
             var name = $(this).data('name');
-            $(this).html('<input type="text" name="'+name+'" placeholder="Search ' + title + '" />');
+            if(!['startDate','endDate'].includes(name)){
+                $(this).html('<input type="text" name="'+name+'" placeholder="Search ' + title + '" />');
+            }
+
         });
 
         $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn btn-primary mr-1');

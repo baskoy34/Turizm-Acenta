@@ -84,7 +84,7 @@ public class AcentaController {
 
     @GetMapping("getTours")
     @ResponseBody
-    public List<TourDto> findTours(@ModelAttribute TourDto tourDto){
+    public List<TourDto> findTours(@ModelAttribute TourDto tourDto)throws Exception{
         return tourService.findByTour(tourDto);
     }
 
