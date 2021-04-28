@@ -21,6 +21,14 @@ public class ClientDao {
         return sqlQuery.list();
     }
 
+    public List<Client> findTourClient(Long id) {
+        String query = "select * from client c INNER JOIN sales s on s.tour_id=c.id where s.tour_id=:tour_id";
+        SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery(query);
+        sqlQuery.setParameter("tour_id", id);
+        sqlQuery.addEntity(Client.class);
+        return sqlQuery.list();
+    }
+
     public void insert(Client client) {
         String query = "insert into client(address, email, name, phone, surname) values(:address, :email, :name, :phone, :surname)";
         SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery(query);
@@ -52,4 +60,5 @@ public class ClientDao {
         sqlQuery.setParameter("id", client.getId());
         sqlQuery.executeUpdate();
     }
+
 }

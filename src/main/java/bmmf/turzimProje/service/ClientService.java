@@ -22,6 +22,12 @@ public class ClientService {
         return clientDao.findAllClient();
     }
 
+
+    public List<Client> findTourClient(Long id) {
+        return clientDao.findTourClient(id);
+    }
+
+
     public GeneralResponse save(Client client) {
         GeneralResponse generalResponse = GeneralResponse.builder().build();
         try{
@@ -60,4 +66,5 @@ public class ClientService {
         }
         return generalResponse;
     }
+
 }

@@ -85,6 +85,7 @@
                                                 <th>Lokasyon</th>
                                                 <th>Kalan Bilet</th>
                                                 <th>Ücret</th>
+                                                <th>Müşteriler</th>
                                             </tr>
                                             </thead>
                                             <tbody>

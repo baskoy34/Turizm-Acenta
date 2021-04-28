@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -96,9 +97,16 @@ public class AcentaController {
     }
 
     @GetMapping("/client")
-    public ModelAndView dashboardClient(){
+    public ModelAndView dashboardClient(@RequestParam(required = false) Long id){
+
         ModelAndView modelAndView = new ModelAndView("client/dashboard");
-        modelAndView.addObject("clients",clientService.findAllClient());
+        List<Client> clients = new ArrayList<>();
+        if (id != null){
+            clients = clientService.findTourClient(id);
+        }else {
+            clients = clientService.findAllClient();
+        }
+        modelAndView.addObject("clients",clients);
         return modelAndView;
     }
 
