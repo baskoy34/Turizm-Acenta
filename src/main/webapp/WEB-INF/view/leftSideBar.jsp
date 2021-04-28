@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <c:if test="${sessionInfo.user.userType eq 'ADMIN'}">
 <aside class="left-sidebar">
     <!-- Sidebar scroll-->
@@ -87,6 +88,12 @@
                             <span class="hide-menu">Personel Sayfası</span>
                         </a>
                     </li>
+
+                    <li class="sidebar-item">
+                        <a href="<c:url value="/acenta/client"/>" class="sidebar-link">
+                            <i class="mdi mdi-view-module"></i>
+                            <span class="hide-menu">Müşteri Sayfası</span>
+                        </a>
                     </li>
 
                     <li class="sidebar-item">
