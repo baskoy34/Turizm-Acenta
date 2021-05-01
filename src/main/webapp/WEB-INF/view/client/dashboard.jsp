@@ -114,7 +114,7 @@
                                             </td>
 
                                             <td>
-                                                <a class="deleteHref" data-id="${client.id}">
+                                                <a class="deleteHref" data-id="${client.id}" data-tourid="${tourId}">
                                                     <i class="fas fa-trash-alt" data-toggle="tooltip"
                                                        data-placement="bottom" title="Sil"></i>
                                                 </a>
@@ -152,6 +152,7 @@
                         <label  class="col-sm-2 col-form-label">Soy İsim</label>
                         <div class="col-sm-10">
                             <input id="surname" type="text" class="form-control" name="surname" placeholder="Soy İsim">
+                            <input type="text" style="visibility: hidden" id="tourId" name="tourId">
                         </div>
                     </div>
 
@@ -159,6 +160,7 @@
                         <label  class="col-sm-2 col-form-label">Mail</label>
                         <div class="col-sm-10">
                             <input id="email" type="email" class="form-control" name="email" placeholder="Mail">
+                            <input type="text" style="visibility: hidden">
                         </div>
                     </div>
 
@@ -166,6 +168,7 @@
                         <label  class="col-sm-2 col-form-label">Telefon</label>
                         <div class="col-sm-10">
                             <input id="phone" type="text" class="form-control" name="phone" placeholder="Telefon">
+                            <input type="text" style="visibility: hidden">
                         </div>
                     </div>
 
@@ -173,6 +176,7 @@
                         <label  class="col-sm-2 col-form-label">Adres</label>
                         <div class="col-sm-10">
                             <input id="address" type="text" class="form-control" name="address" placeholder="Adres">
+                            <input type="text" style="visibility: hidden">
                         </div>
                     </div>
                 </form>
@@ -221,16 +225,19 @@
     $(document).ready(function (){
 
         $(".deleteHref").click(function (){
-            $('#deleteClientModal').data('id', $(this).data('id')).modal('show');
+            $('#deleteClientModal').data('id', $(this).data('id'));
+            $('#deleteClientModal').data('tourId', $(this).data('tourid')).modal('show');
         })
 
         $('#btnDeleteYes').click(function (){
             var id = $('#deleteClientModal').data('id')
-            console.log(id)
+            var tourId = $('#deleteClientModal').data('tourId')
+            console.log(tourId)
             $.ajax({
                 type:'DELETE',
                 contentType: 'application/json; charset=utf-8',
-                url: "client?id="+id,
+                url: "client?id="+id+"&tourId="+tourId,
+
                 timeout: 100000,
                 success: function (response){
                     if (response.result == 0){
@@ -265,12 +272,15 @@
 
         $('#clientCreateBtn').click(function (e){
             e.preventDefault();
+            $('#createClientModal #tourId').val(${tourId});
             var postData = $('#createClientForm').serializeObject();
+            <%--var tourId = ${tourId}--%>
             var type =  $('#createClientModal').data('type') == 'update' ? 'put' : 'post';
             $.ajax({
-                type:type,
+                type: type,
                 url: "client",
                 data: JSON.stringify(postData),
+
                 contentType: "application/json",
                 success: function (response){
                     if (response.result == 0){

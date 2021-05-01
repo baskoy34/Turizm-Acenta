@@ -42,7 +42,7 @@ public class Tour implements Serializable {
 
     @ManyToMany
     @JoinTable( name = "sales",
-            joinColumns = { @JoinColumn(name = "tour_id") },
+            joinColumns = { @JoinColumn(name = "tour_id")},
             inverseJoinColumns = { @JoinColumn(name = "client_id") })
     private List<Client> clients = new ArrayList<>();
 

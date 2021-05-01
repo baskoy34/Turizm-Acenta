@@ -85,7 +85,7 @@
                                                 <th>Lokasyon</th>
                                                 <th>Kalan Bilet</th>
                                                 <th>Ücret</th>
-                                                <th>Müşteriler</th>
+                                                <th>Müşteriler </th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -130,6 +130,7 @@
             xhr.setRequestHeader(header, token);
         });
     });
+    // $('#file_export thead tr').append('<th/>');
     $(document).ready(function() {
 
         var tableSearching = $('#file_export').DataTable({
@@ -158,9 +159,9 @@
                     if($.trim($('input[name=price]').val()).length){
                         data.price = $('input[name=price]').val();
                     }
-
                 },
             },
+
             columns: [
                 { data: "id", "visible": false , orderable: false},
                 { data: "startDate", name: 'startDate', searchable: true, orderable: false},
@@ -169,7 +170,17 @@
                 { data: "details", name: 'details', orderable: false },
                 { data: "location", name: 'location', searchable: true, orderable: false},
                 { data: "capasity", name: 'capasity', searchable: true, orderable: false},
-                { data: "price", name: 'price', searchable: true, orderable: false}],
+                { data: "price", name: 'price', searchable: true, orderable: false},
+                { data: "id", render:
+                        function (data, type, row) {
+                            var id = row.id
+                            return "<div class='btn-group'>" + "<a href='client?id="+id+"' data-id='" + row.id + "' " +
+                                "class='btnConfirmShow btn btn-outline-info btn-sm btn-icon-split float-right'>" +
+                                "<span class='icon text-danger-50'>" + "<i class='fa fa-info fa-fw'></i>" + "</span>" +
+                                "<span class='text delete-btn'>&nbsp;Göster</span>" + "</a>" + "</div>"
+                        }}
+            ],
+
             columnDefs: [
                 { orderable: false, targets: [ 1, 2, 3, 4, 5, 6, 7 ] } //This part is ok now
             ]
@@ -191,6 +202,7 @@
             //         }},
             // ]
         });
+
 
         $('.text-inputs-searching tfoot th').each(function() {
             var title = $(this).text();

@@ -15,14 +15,16 @@ import java.util.List;
 @Builder
 public class Client implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_id_seq")
+    @SequenceGenerator(name = "client_id_seq",
+            sequenceName = "client_seq",
+            allocationSize = 1)
     private long id;
     private String name;
     private String surname;
     private String email;
     private String phone;
     private String address;
-
 
     @ManyToMany(mappedBy = "clients")
     private List<Tour> tours;

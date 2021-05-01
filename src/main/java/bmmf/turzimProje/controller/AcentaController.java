@@ -3,6 +3,7 @@ package bmmf.turzimProje.controller;
 import bmmf.turzimProje.model.AcentaUser;
 import bmmf.turzimProje.model.Client;
 import bmmf.turzimProje.model.Staff;
+import bmmf.turzimProje.model.dto.ClientTourDto;
 import bmmf.turzimProje.model.dto.GeneralResponse;
 import bmmf.turzimProje.model.dto.TourDto;
 import bmmf.turzimProje.model.enums.TourType;
@@ -13,6 +14,7 @@ import bmmf.turzimProje.utils.Constants;
 import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,7 +62,6 @@ public class AcentaController {
         return staffService.update(staff, acentaUser);
     }
 
-
     @PostMapping("createTour")
     @ResponseBody
     public GeneralResponse createTour(@RequestBody TourDto tourDto, HttpSession httpSession){
@@ -68,7 +69,6 @@ public class AcentaController {
         return tourService.save(tourDto,acentaUser);
 
     }
-
 
     @GetMapping("getTour")
     public ModelAndView getTour(HttpSession httpSession){
@@ -97,7 +97,7 @@ public class AcentaController {
     }
 
     @GetMapping("/client")
-    public ModelAndView dashboardClient(@RequestParam(required = false) Long id){
+    public ModelAndView dashboardClient(@RequestParam(value = "id", required = false) Long id){
 
         ModelAndView modelAndView = new ModelAndView("client/dashboard");
         List<Client> clients = new ArrayList<>();
@@ -106,20 +106,21 @@ public class AcentaController {
         }else {
             clients = clientService.findAllClient();
         }
+        modelAndView.addObject("tourId", id);
         modelAndView.addObject("clients",clients);
         return modelAndView;
     }
 
     @PostMapping("/client")
     @ResponseBody
-    public GeneralResponse createClient(@RequestBody Client client){
-        return clientService.save(client);
+    public GeneralResponse createClient(@RequestBody ClientTourDto clientTourDto){
+        return clientService.save(clientTourDto);
     }
 
     @DeleteMapping("/client")
     @ResponseBody
-    public GeneralResponse deleteClient(@RequestParam("id") Long id){
-        return clientService.delete(id);
+    public GeneralResponse deleteClient(@RequestParam("id") Long id, @RequestParam(value = "tourId", required = false) Long tourId){
+        return clientService.delete(id, tourId);
     }
 
     @PutMapping("/client")
