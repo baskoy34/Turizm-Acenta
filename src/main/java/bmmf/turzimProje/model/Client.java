@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "client",schema = "VOLKANCAN")
+@Table(name = "client",schema = "turizm")
 @Getter
 @Setter
 @AllArgsConstructor

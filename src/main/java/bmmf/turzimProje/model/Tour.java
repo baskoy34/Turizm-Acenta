@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "tour",schema = "VOLKANCAN")
+@Table(name = "tour",schema = "turizm")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -41,13 +41,13 @@ public class Tour implements Serializable {
     private TourType tourType;
 
     @ManyToMany
-    @JoinTable( name = "sales",
+    @JoinTable( name = "turizm.sales",
             joinColumns = { @JoinColumn(name = "tour_id")},
             inverseJoinColumns = { @JoinColumn(name = "client_id") })
     private List<Client> clients = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable( name = "personel_tour",
+    @JoinTable( name = "turizm.personel_tour",
                 joinColumns = { @JoinColumn(name = "tour_id")},
                 inverseJoinColumns = { @JoinColumn(name = "staff_id") })
     private Set<Staff> staff = new HashSet<>();
