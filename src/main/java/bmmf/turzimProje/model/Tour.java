@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "tour")
+@Table(name = "tour",schema = "VOLKANCAN")
 @Getter
 @Setter
 @AllArgsConstructor
