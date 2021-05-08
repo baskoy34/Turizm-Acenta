@@ -47,6 +47,7 @@ public class HibernateConfig {
         dataSource.setUrl(URL);
         dataSource.setUsername(USERNAME);
         dataSource.setPassword(PASSWORD);
+        dataSource.setSchema("turizm");
         return dataSource;
     }
 

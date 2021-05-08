@@ -21,7 +21,7 @@ public class Tour implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tour_id_seq")
     @SequenceGenerator(name = "tour_id_seq",
-            sequenceName = "tour_seq",
+            sequenceName = "turizm.tour_seq",
             allocationSize = 1)
     private long id;
 
