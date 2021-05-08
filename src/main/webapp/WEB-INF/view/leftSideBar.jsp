@@ -59,6 +59,12 @@
                                 <span class="hide-menu">Kullanıcı Listele</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                            <a href="<c:url value="/admin/backup"/>" class="sidebar-link">
+                                <i class="mdi mdi-view-quilt"></i>
+                                <span class="hide-menu">Database Yedek İşlemleri</span>
+                            </a>
+                        </li>
                     </ul>
 
 

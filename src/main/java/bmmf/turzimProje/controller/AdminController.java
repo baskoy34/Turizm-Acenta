@@ -1,6 +1,5 @@
 package bmmf.turzimProje.controller;
 
-import bmmf.turzimProje.model.AcentaUser;
 import bmmf.turzimProje.model.Admins;
 import bmmf.turzimProje.model.Users;
 import bmmf.turzimProje.model.dto.CreateUserDto;
@@ -9,8 +8,7 @@ import bmmf.turzimProje.model.enums.UserType;
 import bmmf.turzimProje.service.AdminService;
 import bmmf.turzimProje.service.UserService;
 import bmmf.turzimProje.utils.Constants;
-import oracle.jdbc.proxy.annotation.Post;
-import org.apache.catalina.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,8 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -90,7 +91,29 @@ public class AdminController {
 
     }
 
+    @GetMapping("/backup")
+    public ModelAndView backupSQL(Map<String, Object> map){
+        ModelAndView modelAndView = new ModelAndView("backup");
+        return modelAndView;
 
+    }
+
+    @GetMapping("/create-backup")
+    public ModelAndView backUpProcess(){
+        ModelAndView modelAndView = new ModelAndView("backup");
+        String fileName = "backup_" + new Date().getTime() + ".dmp";
+        String cmd = "expdp system/volkan1 directory=DUMP_DIR SCHEMAS=VOLKANCAN logfile=tr.log dumpfile="+fileName;
+        try {
+            Runtime.getRuntime().exec(cmd);
+        }catch (Exception e){
+            log.error("[Backup database] failed:{}", e.getMessage());
+            modelAndView.addObject("backupMsg","Hata oluştu");
+        }
+        log.info("[Backup database] successful, SQL Document:{}", fileName);
+        modelAndView.addObject("backupMsg","Database backup successful");
+
+        return modelAndView;
+    }
 
 
 
