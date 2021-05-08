@@ -53,14 +53,41 @@
                     </div>
                 </div>
             </div>
-            <c:if test="${!empty backupMsg}">
-                <p>${backupMsg}</p>
-            </c:if>
+            <div class="container-fluid mt-lg-3">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header bg-info" >
+                                <h4 class="m-b-0 text-white">Yedekleme İşlemleri</h4>
+                            </div>
+                        </div>
 
-            <div>
-                <a href="/admin/create-backup">Backup Oluştur</a>
+                            <div class="form-body">
+                                <div class="card-body">
+                                    <c:if test="${!empty backupMsg}">
+                                        <p>${backupMsg}</p>
+                                    </c:if>
+                                    <div class="row p-t-20">
+                                        <a href="/admin/create-backup">Backup Oluştur</a>
+                                    </div>
+                                    <br/><br/>
+                                <form:form action="/admin/restore" method="post" enctype="multipart/form-data">
+                                    <h2>Yedekten Geri Dön</h2>
+                                    <div class="row p-t-20">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="control-label col-form-label">Database Yedeği Seçin</label>
+                                                <input id="backup" type="file" accept=".dmp"  name="backup">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="submit" class="btn btn-success">
+                                </form:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
     <jsp:include page="footer.jsp"></jsp:include>

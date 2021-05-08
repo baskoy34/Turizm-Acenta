@@ -71,8 +71,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">File export</h4>
-                                    <h6 class="card-subtitle">Exporting data from a table can often be a key part of a complex application. The Buttons extension for DataTables provides three plug-ins that provide overlapping functionality for data export.  You can refer full documentation from here <a href="https://datatables.net/">Datatables</a></h6>
+                                    <h4 class="card-title">TURLAR</h4>
                                     <div class="table-responsive">
                                         <table id="file_export" class="table table-striped table-bordered display text-inputs-searching">
                                             <thead>
@@ -137,6 +136,16 @@
             serverSide: true,
             processing: false,
             ordering: false,
+            searching:false,
+            bPaginate: false,
+            bInfo: false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ],
             ajax: {
                 url: "/acenta/getTours",
                 type: "get",
@@ -217,12 +226,11 @@
         tableSearching.columns().every(function () {
             var that = this;
 
-            $('input', this.footer()).on('keyup change', function () {
-                if (that.search() !== this.value) {
+            $('input', this.footer()).on('keyup', function () {
                     that
                         .search(this.value)
                         .draw();
-                }
+
             });
         });
     });

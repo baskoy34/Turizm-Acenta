@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -101,8 +102,8 @@ public class AdminController {
     @GetMapping("/create-backup")
     public ModelAndView backUpProcess(){
         ModelAndView modelAndView = new ModelAndView("backup");
-        String fileName = "backup_" + new Date().getTime() + ".dmp";
-        String cmd = "expdp system/volkan1 directory=DUMP_DIR SCHEMAS=VOLKANCAN logfile=tr.log dumpfile="+fileName;
+        String fileName = "backup_" + new Date().getTime();
+        String cmd = String.format("expdp system/volkan1 directory=DUMP_DIR SCHEMAS=turizm logfile=%s.log dumpfile=%s.dmp",fileName,fileName);
         try {
             Runtime.getRuntime().exec(cmd);
         }catch (Exception e){
@@ -111,6 +112,26 @@ public class AdminController {
         }
         log.info("[Backup database] successful, SQL Document:{}", fileName);
         modelAndView.addObject("backupMsg","Database backup successful");
+
+        return modelAndView;
+    }
+
+    @PostMapping("/restore")
+    public ModelAndView restoreDatabase(@RequestParam("backup") MultipartFile file){
+        ModelAndView modelAndView = new ModelAndView("backup");
+
+        String fileName = file.getOriginalFilename();
+        String logName = fileName.split("\\.")[0]+".log";
+
+        String cmd = String.format("impdp system/volkan1 schemas=turizm directory=DUMP_DIR dumpfile=%s logfile=%s TABLE_EXISTS_ACTION=REPLACE",fileName,logName);
+        try {
+            Runtime.getRuntime().exec(cmd);
+        }catch (Exception e){
+            log.error("[Backup database] failed:{}", e.getMessage());
+            modelAndView.addObject("backupMsg","Hata oluştu");
+        }
+        log.info("[Backup database] successful, SQL Document:{}", fileName);
+        modelAndView.addObject("backupMsg","Yedek Başarıyla yüklendi");
 
         return modelAndView;
     }

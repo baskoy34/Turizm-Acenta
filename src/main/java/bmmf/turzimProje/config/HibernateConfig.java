@@ -34,8 +34,6 @@ public class HibernateConfig {
     @Value("${hibernate.show_sql}")
     private String SHOW_SQL;
 
-    @Value("${hibernate.hbm2ddl.auto}")
-    private String HBM2DDL_AUTO;
 
     @Value("${entitymanager.packagesToScan}")
     private String PACKAGES_TO_SCAN;
@@ -59,7 +57,6 @@ public class HibernateConfig {
         Properties hibernateProperties = new Properties();
         hibernateProperties.put("hibernate.dialect", DIALECT);
         hibernateProperties.put("hibernate.show_sql", SHOW_SQL);
-        hibernateProperties.put("hibernate.hbm2ddl.auto", HBM2DDL_AUTO);
         sessionFactory.setHibernateProperties(hibernateProperties);
 
         return sessionFactory;
