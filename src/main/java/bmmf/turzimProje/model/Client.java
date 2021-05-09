@@ -13,6 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@NamedNativeQuery(
+        name = "callTestp",
+        query = "CALL testp(:prop,:val)",
+        resultClass = Client.class
+)
 public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_id_seq")

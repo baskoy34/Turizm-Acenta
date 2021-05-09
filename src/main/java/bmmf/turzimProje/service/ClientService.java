@@ -4,6 +4,7 @@ import bmmf.turzimProje.dao.ClientDao;
 import bmmf.turzimProje.dao.ClientTourDao;
 import bmmf.turzimProje.model.Client;
 import bmmf.turzimProje.model.Tour;
+import bmmf.turzimProje.model.dto.ClientFilterRequest;
 import bmmf.turzimProje.model.dto.ClientTourDto;
 import bmmf.turzimProje.model.dto.GeneralResponse;
 import bmmf.turzimProje.utils.Constants;
@@ -26,8 +27,8 @@ public class ClientService {
     @Autowired
     private ClientTourDao clientTourDao;
 
-    public List<Client> findAllClient(){
-        return clientDao.findAllClient();
+    public List<Client> findAllClient(ClientFilterRequest clientFilterRequest){
+        return clientDao.findAllClient(clientFilterRequest);
     }
 
 

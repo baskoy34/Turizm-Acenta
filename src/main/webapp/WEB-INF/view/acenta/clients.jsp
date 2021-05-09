@@ -67,6 +67,38 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
+                            <h4 class="card-title">Filtreleme Alanı</h4>
+                        </div>
+                        <form id="clientFilter" method="get">
+                            <div class="form-body">
+                                <div class="card-body">
+                                    <div class="row p-t-20">
+                                        <div class="col-md-4">
+                                            <select class="form-control custom-select" name="property">
+                                                <option value="name">İsim ile</option>
+                                                <option value="surname">Soyisim ile</option>
+                                                <option value="email">Mail ile</option>
+                                                <option value="phone">Telefon ile</option>
+                                                <option value="address">Adres ile</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input class="form-control" name="value" type="text">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-info">Filtrele</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
                             <h4 class="card-title">Müşteriler</h4>
                             <h6 class="card-subtitle"></h6>
                             <div class="table-responsive">
@@ -223,6 +255,19 @@
     });
 
     $(document).ready(function (){
+
+        <%--$('form#clientFilter').submit(function(e){--%>
+        <%--    e.preventDefault();--%>
+        <%--    var requestParams = "";--%>
+
+        <%--    $('#clientFilter').find('input').each(function (key, formInput) {--%>
+        <%--        if ($.trim(this.value).length && formInput.type !== "submit" && formInput.type !== "button") {--%>
+        <%--            requestParams += "&" + formInput.name + "=" + formInput.value;--%>
+        <%--        }--%>
+        <%--    });--%>
+        <%--    console.log(requestParams);--%>
+        <%--    window.location = "${home}client"+requestParams;--%>
+        <%--});--%>
 
         $(".deleteHref").click(function (){
             $('#deleteClientModal').data('id', $(this).data('id'));

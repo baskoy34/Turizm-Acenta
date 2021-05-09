@@ -3,6 +3,7 @@ package bmmf.turzimProje.controller;
 import bmmf.turzimProje.model.AcentaUser;
 import bmmf.turzimProje.model.Client;
 import bmmf.turzimProje.model.Staff;
+import bmmf.turzimProje.model.dto.ClientFilterRequest;
 import bmmf.turzimProje.model.dto.ClientTourDto;
 import bmmf.turzimProje.model.dto.GeneralResponse;
 import bmmf.turzimProje.model.dto.TourDto;
@@ -11,10 +12,8 @@ import bmmf.turzimProje.service.ClientService;
 import bmmf.turzimProje.service.StaffService;
 import bmmf.turzimProje.service.TourService;
 import bmmf.turzimProje.utils.Constants;
-import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -97,14 +96,14 @@ public class AcentaController {
     }
 
     @GetMapping("/client")
-    public ModelAndView dashboardClient(@RequestParam(value = "id", required = false) Long id){
+    public ModelAndView dashboardClient(@ModelAttribute ClientFilterRequest filterRequest, @RequestParam(value = "id", required = false) Long id){
 
-        ModelAndView modelAndView = new ModelAndView("client/dashboard");
+        ModelAndView modelAndView = new ModelAndView("acenta/clients");
         List<Client> clients = new ArrayList<>();
         if (id != null){
             clients = clientService.findTourClient(id);
         }else {
-            clients = clientService.findAllClient();
+            clients = clientService.findAllClient(filterRequest);
         }
         modelAndView.addObject("tourId", id);
         modelAndView.addObject("clients",clients);
@@ -129,4 +128,10 @@ public class AcentaController {
         return clientService.update(client);
     }
 
+    @GetMapping("/tst")
+    @ResponseBody
+    public GeneralResponse tst(ModelAndView modelAndView){
+        GeneralResponse response = new GeneralResponse();
+        return response;
+    }
 }
