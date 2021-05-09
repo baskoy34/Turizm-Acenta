@@ -1,14 +1,18 @@
 package bmmf.turzimProje.service;
 
+import bmmf.turzimProje.dao.ClientDao;
+import bmmf.turzimProje.dao.ClientTourDao;
 import bmmf.turzimProje.dao.PersonelTourDao;
 import bmmf.turzimProje.dao.TourDao;
 import bmmf.turzimProje.model.AcentaUser;
 import bmmf.turzimProje.model.Staff;
 import bmmf.turzimProje.model.Tour;
+import bmmf.turzimProje.model.dto.ClientTourDto;
 import bmmf.turzimProje.model.dto.GeneralResponse;
 import bmmf.turzimProje.model.dto.QueryParam;
 import bmmf.turzimProje.model.dto.TourDto;
 import bmmf.turzimProje.utils.Constants;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,13 +29,16 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 
-
+@Slf4j
 @Service
 @Transactional
 public class TourService {
 
     @Autowired
     private TourDao tourDao;
+
+    @Autowired
+    private ClientService clientService;
 
     @Autowired
     private PersonelTourDao personelTourDao;
@@ -102,6 +109,18 @@ public class TourService {
                         .tourType(tour.getTourType().getName())
                         .build()
         ).collect(Collectors.toList());
+    }
+
+    public GeneralResponse multiClientInsert(List<ClientTourDto> clientTourDtos, Long tourId){
+        GeneralResponse response = GeneralResponse.builder().result(1).message(Constants.err).build();
+        try {
+            clientTourDtos.forEach(clientTourDto -> clientService.save(clientTourDto));
+            response.setResult(0);
+            response.setMessage(Constants.success);
+        } catch (Exception ex){
+            log.error(ex.getMessage());
+        }
+        return response;
     }
 
     private String createQueryParam(List<QueryParam> queryParams){

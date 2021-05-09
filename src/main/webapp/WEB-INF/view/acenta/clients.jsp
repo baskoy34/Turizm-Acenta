@@ -102,6 +102,15 @@
                             <h4 class="card-title">Müşteriler</h4>
                             <h6 class="card-subtitle"></h6>
                             <div class="table-responsive">
+                                <h3>Download Excel Customers File</h3>
+                                <div>
+                                    <a href="/acenta/download/customers.xlsx">Customers .XLSX</a>
+                                </div>
+
+                                <div>
+                                    <label for="file">Excel İle İmport</label>
+                                    <input id="excel" name="file" type="file" accept=".xls,.xlsx">
+                                </div>
                                 <div class="float-right mb-2">
                                     <a class="addUser" data-toggle="modal" data-target="#createClientModal">
                                         <i class="fa fa-plus">Müşteri Ekle</i>
@@ -256,18 +265,34 @@
 
     $(document).ready(function (){
 
-        <%--$('form#clientFilter').submit(function(e){--%>
-        <%--    e.preventDefault();--%>
-        <%--    var requestParams = "";--%>
+        $("input:file#excel").change(function(e){
+            var formData = new FormData();
+            formData.append("file", $('input[type=file]')[0].files[0])
+            formData.append("tourId","${tourId}");
+            console.log("${tourId}");
+            $.ajax({
+                type: "post",
+                url: "importClient",
+                processData: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                data: formData,
 
-        <%--    $('#clientFilter').find('input').each(function (key, formInput) {--%>
-        <%--        if ($.trim(this.value).length && formInput.type !== "submit" && formInput.type !== "button") {--%>
-        <%--            requestParams += "&" + formInput.name + "=" + formInput.value;--%>
-        <%--        }--%>
-        <%--    });--%>
-        <%--    console.log(requestParams);--%>
-        <%--    window.location = "${home}client"+requestParams;--%>
-        <%--});--%>
+                success: function (response) {
+                    if (response.result == 0) {
+                        toastr.success(response.message)
+                        setTimeout(function () {
+                            location.reload()
+                        }, 500)
+                    } else {
+                        toastr.error(response.message)
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown){
+                    toastr.error("Bilinmeyen Bir Hata Oluştu")
+                }
+            });
+        });
 
         $(".deleteHref").click(function (){
             $('#deleteClientModal').data('id', $(this).data('id'));
