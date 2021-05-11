@@ -26,7 +26,6 @@ public class UserService {
     @Autowired
     private AdminDao adminDao;
 
-
     public Users findByUserName(String userName) {
         return userDao.findByUserName(userName);
     }

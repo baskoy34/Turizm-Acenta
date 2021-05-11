@@ -1,10 +1,10 @@
 package bmmf.turzimProje.dao;
 
-import bmmf.turzimProje.model.AcentaUser;
 import bmmf.turzimProje.model.Client;
 import bmmf.turzimProje.model.ClientConverter;
 import bmmf.turzimProje.model.dto.ClientFilterRequest;
 import bmmf.turzimProje.model.dto.ClientTourDto;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -17,7 +17,6 @@ import javax.persistence.StoredProcedureQuery;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 public class ClientDao {
@@ -38,7 +37,7 @@ public class ClientDao {
     public List<Client> findAllClient(ClientFilterRequest clientFilterRequest){
         List<Object[]> reponse = new ArrayList<>();
         if(StringUtils.isNotEmpty(clientFilterRequest.getProperty()) && StringUtils.isNotEmpty(clientFilterRequest.getValue())){
-            StoredProcedureQuery query = sessionFactory.getCurrentSession().createStoredProcedureCall("testp")
+            StoredProcedureQuery query = sessionFactory.getCurrentSession().createStoredProcedureCall("clientFilterProcedure")
                     .registerStoredProcedureParameter(1, String.class,
                             ParameterMode.IN)
                     .registerStoredProcedureParameter(2, String.class,
@@ -48,7 +47,7 @@ public class ClientDao {
                     .setParameter(2,clientFilterRequest.getValue().toLowerCase());
             reponse = query.getResultList();
         } else {
-            StoredProcedureQuery query = sessionFactory.getCurrentSession().createStoredProcedureCall("clientSelect")
+            StoredProcedureQuery query = sessionFactory.getCurrentSession().createStoredProcedureCall("clientSelectProcedure")
                     .registerStoredProcedureParameter(1,Class.class,ParameterMode.REF_CURSOR);
             reponse = query.getResultList();
         }
