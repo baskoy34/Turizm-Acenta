@@ -17,7 +17,7 @@ public class StaffDao {
     private SessionFactory sessionFactory;
 
     public List<Staff> findAllStuff(AcentaUser acentaUser){
-        SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery("select * from staff where acenta_ID=:id");
+        SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery("select * from staff where acenta_ID=:id and status=1");
         sqlQuery.setParameter("id",acentaUser.getId());
         sqlQuery.addEntity(Staff.class);
         return sqlQuery.list();
@@ -35,7 +35,7 @@ public class StaffDao {
     }
 
     public void delete(Long id, AcentaUser acentaUser){
-        String query = "delete from staff where id=:id and acenta_ID=:aid";
+        String query = "delete from vw_staff where id=:id and acenta_ID=:aid";
         SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery(query);
         sqlQuery.setParameter("id",id);
         sqlQuery.setParameter("aid",acentaUser.getId());

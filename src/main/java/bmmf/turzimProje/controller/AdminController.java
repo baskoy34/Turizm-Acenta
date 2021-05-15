@@ -33,14 +33,6 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView index(HttpSession httpSession){
-        Admins admin = (Admins) httpSession.getAttribute(Constants.userInfoKey);
-        ModelAndView modelAndView = new ModelAndView("index");
-        return modelAndView;
-    }
-
     @GetMapping("/listUser")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getUserList(HttpSession httpSession){

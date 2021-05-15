@@ -100,13 +100,14 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Müşteriler</h4>
-                            <h6 class="card-subtitle"></h6>
+                            <br>
                             <div class="table-responsive">
-                                <h3>Download Excel Customers File</h3>
+                                <h3>Excel Download</h3>
                                 <div>
-                                    <a href="/acenta/download/customers.xlsx">Customers .XLSX</a>
+                                    <a href="/acenta/download/customers.xlsx">Customers .xlsx</a>
                                 </div>
-
+                                <br>
+                                <br>
                                 <div>
                                     <label for="file">Excel İle İmport</label>
                                     <input id="excel" name="file" type="file" accept=".xls,.xlsx">

@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "staff",schema = "turizm")
+@Table(name = "vw_staff",schema = "turizm")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,6 +27,8 @@ public class Staff implements Serializable {
     private long price;
 
     private String job;
+
+    private boolean status;
 
     @ManyToMany(mappedBy = "staff")
     private Set<Tour> tours = new HashSet<>();

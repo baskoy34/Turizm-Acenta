@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer class="footer text-center">
-    All Rights Reserved by Erhan Canlıca Designed and Developed by
-    <a href="https://VCB.com">VCB</a>.
+    All Rights Reserved by Volkan Can Başköy, Erhan Canlıca, Abdurrahman Başgöynük
 </footer>
 
 <!-- All Jquery -->
