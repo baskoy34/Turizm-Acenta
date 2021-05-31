@@ -37,22 +37,24 @@ public class Tour implements Serializable {
 
     private String details;
 
+    private int totalPrice;
+
     @Enumerated(EnumType.STRING)
     private TourType tourType;
 
     @ManyToMany
-    @JoinTable( name = "turizm.sales",
+    @JoinTable( name = "sales",
             joinColumns = { @JoinColumn(name = "tour_id")},
             inverseJoinColumns = { @JoinColumn(name = "client_id") })
     private List<Client> clients = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable( name = "turizm.personel_tour",
+    @JoinTable( name = "personel_tour",
                 joinColumns = { @JoinColumn(name = "tour_id")},
                 inverseJoinColumns = { @JoinColumn(name = "staff_id") })
     private Set<Staff> staff = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "acenta_Id")
+    @JoinColumn(name = "acenta_id")
     private AcentaUser acentaUser;
 }

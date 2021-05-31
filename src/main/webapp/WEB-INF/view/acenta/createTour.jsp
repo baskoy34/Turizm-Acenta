@@ -142,14 +142,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Tur Kapasitesi</label>
-                                                    <input type="number" id="capasity" name="capasity" class="form-control" required>
+                                                    <input type="text" id="capasity" name="capasity" class="form-control number-mask" required>
                                                     <%--<small class="form-control-feedback"> This is inline help </small> --%>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Tur Ücreti </label>
-                                                    <input type="number" id="price" class="form-control" name="price" required>
+                                                    <input type="text" id="price" class="form-control number-mask" name="price" required>
                                                     <%--<small class="form-control-feedback"> This is inline help </small> --%>
                                                 </div>
                                             </div>
@@ -194,6 +194,14 @@
         $('.js-example-basic-multiple').select2({
             placeholder: "Personel Seç",
             allowClear: true
+        });
+
+        $(document).on("focus", ".number-mask", function() {
+            $(this).inputmask({
+                "mask": "9",
+                "repeat": 7,
+                "greedy": false
+            });
         });
 
         $("#createForm").submit(function(event) {

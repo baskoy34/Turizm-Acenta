@@ -49,7 +49,7 @@ public class TourDao {
     }
 
     public List<Tour> findByTour(String query2, List<QueryParam> queryParams) {
-        String query = "select * from tour where " + query2;
+        String query = "select * from turizm.tour where " + query2;
         Session session = sessionFactory.getCurrentSession();
         SQLQuery sqlQuery = session.createSQLQuery(query);
         queryParams.forEach(s -> {

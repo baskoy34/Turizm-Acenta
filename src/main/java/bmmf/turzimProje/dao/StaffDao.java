@@ -24,13 +24,14 @@ public class StaffDao {
     }
 
     public void insert(Staff staff, AcentaUser acentaUser){
-        String query = "insert into staff(firstname, job, lastname, price, acenta_ID) values(:firstname, :job, :lastname, :price,  :acentaId)";
+        String query = "insert into staff(firstname, job, lastname, price ,acenta_ID, status) values(:firstname, :job, :lastname, :price,  :acentaId, :status)";
         SQLQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery(query);
         sqlQuery.setParameter("firstname",staff.getFirstName());
         sqlQuery.setParameter("job",staff.getJob());
         sqlQuery.setParameter("lastname",staff.getLastName());
         sqlQuery.setParameter("price",staff.getPrice());
         sqlQuery.setParameter("acentaId",acentaUser.getId());
+        sqlQuery.setParameter("status", true);
         sqlQuery.executeUpdate();
     }
 

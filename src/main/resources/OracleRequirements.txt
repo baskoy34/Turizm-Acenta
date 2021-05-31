@@ -63,9 +63,53 @@ BEGIN
 UPDATE tour t SET t.TOTAL_PRICE = t.TOTAL_PRICE + t.PRICE where t.id=:NEW.TOUR_ID;
 END;
 -----------------------------------------------------------------------------------------------------------------------
-create or replace TRIGGER staff_delete
-INSTEAD OF DELETE ON vw_staff
+create or replace TRIGGER turizm.STAFF_DELETE_TRG
+INSTEAD OF DELETE ON turizm.VW_STAFF
 FOR EACH ROW
 BEGIN
-  update staff set status = 0 where id = :old.id;
+  UPDATE turizm.STAFF SET status = 0 WHERE id = :old.id;
 END;
+-----------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------
+CREATE TABLE TURIZM.CLIENT_HISTORY
+(
+  ID NUMBER(19, 0) NOT NULL
+, ADDRESS VARCHAR2(255 BYTE)
+, EMAIL VARCHAR2(255 BYTE)
+, NAME VARCHAR2(255 BYTE)
+, PHONE VARCHAR2(255 BYTE)
+, SURNAME VARCHAR2(255 BYTE)
+, USERNAME VARCHAR2(255 BYTE)
+, DELETED_DATE DATE
+, CONSTRAINT TABLE1_PK PRIMARY KEY
+  (
+    ID
+  )
+  USING INDEX
+  (
+      CREATE UNIQUE INDEX TURIZM.TABLE1_PK ON TURIZM.CLIENT_HISTORY (ID ASC)
+      LOGGING
+      TABLESPACE USERS
+      PCTFREE 10
+      INITRANS 2
+      STORAGE
+      (
+        BUFFER_POOL DEFAULT
+      )
+      NOPARALLEL
+  )
+  ENABLE
+)
+LOGGING
+TABLESPACE USERS
+PCTFREE 10
+INITRANS 1
+STORAGE
+(
+  BUFFER_POOL DEFAULT
+)
+NOCOMPRESS
+NO INMEMORY
+NOPARALLEL;
+-----------------------------------------------------------------------------------------------------------------------

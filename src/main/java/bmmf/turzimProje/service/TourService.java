@@ -106,6 +106,7 @@ public class TourService {
                         .startDate(tour.getStartDate())
                         .location(tour.getLocation())
                         .price(tour.getPrice())
+                        .totalPrice(tour.getTotalPrice())
                         .tourType(tour.getTourType().getName())
                         .build()
         ).collect(Collectors.toList());

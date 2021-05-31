@@ -163,7 +163,7 @@
                     <div class="form-group row">
                         <label  class="col-sm-2 col-form-label">Ücret</label>
                         <div class="col-sm-10">
-                            <input id="price" type="number" class="form-control" name="price" placeholder="Ücret">
+                            <input id="price" type="text" class="form-control" name="price" placeholder="Ücret">
                         </div>
                     </div>
 
@@ -237,6 +237,14 @@
             $('#createUserModel').removeData('type')
         });
 
+        $(document).on("focus", "#price", function() {
+            $(this).inputmask({
+                "mask": "9",
+                "repeat": 7,
+                "greedy": false
+            });
+        });
+
         $("#btnDeleteYes").click(function () {
             var id = $('#deleteRecordModal').data('id');
 
@@ -290,6 +298,8 @@
             })
 
         });
+
+
 
     });
 </script>

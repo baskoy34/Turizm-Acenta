@@ -95,7 +95,7 @@ public class AdminController {
     public ModelAndView backUpProcess(){
         ModelAndView modelAndView = new ModelAndView("backup");
         String fileName = "backup_" + new Date().getTime();
-        String cmd = String.format("expdp system/volkan1 directory=DUMP_DIR SCHEMAS=turizm logfile=%s.log dumpfile=%s.dmp",fileName,fileName);
+        String cmd = String.format("expdp system/237529 directory=DUMP_DIR SCHEMAS=turizm logfile=%s.log dumpfile=%s.dmp",fileName,fileName);
         try {
             Runtime.getRuntime().exec(cmd);
         }catch (Exception e){
@@ -115,7 +115,7 @@ public class AdminController {
         String fileName = file.getOriginalFilename();
         String logName = fileName.split("\\.")[0]+".log";
 
-        String cmd = String.format("impdp system/volkan1 schemas=turizm directory=DUMP_DIR dumpfile=%s logfile=%s TABLE_EXISTS_ACTION=REPLACE",fileName,logName);
+        String cmd = String.format("impdp system/237529 schemas=turizm directory=DUMP_DIR dumpfile=%s logfile=%s TABLE_EXISTS_ACTION=REPLACE",fileName,logName);
         try {
             Runtime.getRuntime().exec(cmd);
         }catch (Exception e){

@@ -21,6 +21,7 @@ public class TourDto {
     private String location;
     private Integer capasity;
     private Integer price;
+    private Integer totalPrice;
     private Long acenta_Id;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String personelNames;

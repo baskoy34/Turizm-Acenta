@@ -84,6 +84,7 @@
                                                 <th>Lokasyon</th>
                                                 <th>Kalan Bilet</th>
                                                 <th>Ücret</th>
+                                                <th>Biriken Ücret </th>
                                                 <th>Müşteriler </th>
                                             </tr>
                                             </thead>
@@ -99,6 +100,7 @@
                                                     <th data-name="location">Lokasyon</th>
                                                     <th data-name="capasity">Kalan Bilet</th>
                                                     <th data-name="price">Ücret</th>
+                                                    <th data-name="totalPrice">Biriken Ücret</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -180,6 +182,7 @@
                 { data: "location", name: 'location', searchable: true, orderable: false},
                 { data: "capasity", name: 'capasity', searchable: true, orderable: false},
                 { data: "price", name: 'price', searchable: true, orderable: false},
+                { data: "totalPrice", name: 'totalPrice', searchable: true, orderable: false},
                 { data: "id", render:
                         function (data, type, row) {
                             var id = row.id
@@ -216,7 +219,7 @@
         $('.text-inputs-searching tfoot th').each(function() {
             var title = $(this).text();
             var name = $(this).data('name');
-            if(!['startDate','endDate'].includes(name)){
+            if(!['startDate','endDate', "totalPrice"].includes(name)){
                 $(this).html('<input type="text" name="'+name+'" placeholder="Search ' + title + '" />');
             }
 
